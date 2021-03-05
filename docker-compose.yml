@@ -1,0 +1,48 @@
+version: "3.7"
+volumes:
+  server-node_modules:
+  # client-node_modules:
+  data-node:
+
+services:
+
+  # node apps
+  server:
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+    container_name: server
+    env_file:
+      - .env
+    image: prototype-server
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+      - server-node_modules:/app/node_modules
+    tty: true
+    depends_on:
+      - db
+  
+  # db
+  db:
+    image: mongo
+    container_name: prototype_mongodb
+    volumes:
+        - data-node:/data/db
+    ports:
+        - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  # # client
+  # client:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/client/Dockerfile
+  #   image: prototype-client
+  #   ports: 
+  #     - 8090:8090
+  #   volumes:
+  #     - 
