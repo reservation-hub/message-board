@@ -2,6 +2,10 @@ FROM node:14
 
 WORKDIR /app/server
 
-COPY . .
+COPY ./app/server .
 
-# CMD [ "npm", "start" ]
+COPY ./scripts/server /scripts
+
+RUN chmod +x /scripts/*
+
+ENTRYPOINT [ "/scripts/entrypoint.sh" ]

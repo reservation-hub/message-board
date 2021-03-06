@@ -43,6 +43,12 @@ services:
       dockerfile: docker/server/Dockerfile
     container_name: prototype-server
     image: prototype-server
+    environment:
+      - NODE_ENV=development
+      - COMMAND=${COMMAND:-serve}
+      - PORT=8090
+    env_file:
+      - .env
     ports: 
       - 8090:8090
     volumes:
