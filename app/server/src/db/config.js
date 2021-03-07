@@ -8,6 +8,7 @@ const dbOptions = {
         authdb: 'admin'
     },
     useUnifiedTopology: true,
+    useFindAndModify: false,
 }
 const DB_HOST = 'mongodb://root:root@db:27017/admin'
 
