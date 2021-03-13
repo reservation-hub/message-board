@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { post } = require('../routes/posts')
 
 const postSchema = new mongoose.Schema(
     {
@@ -26,6 +27,8 @@ postSchema.methods.setParams = function(object) {
         this[key] = value
     }
 }
+
+postSchema.statics = require('./crudSchema')
 
 const Post = mongoose.model('Post', postSchema)
 
