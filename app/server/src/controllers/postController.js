@@ -2,36 +2,36 @@ const db = require('../db/mongoose')
 const Post = require('../models/post')
 
 exports.postIndex =  (req, res) => {
-    const {data: posts, status} =  Post.fetchAll() || {}
-    console.log('posts : ', posts)
-    console.log(Post.fetchAll())
-    // console.log(posts)
-    res.send({})
-    // Post.find({}).exec()
-    // .then(posts => {
-    //     if (!posts.length) {
-    //         return res.status(404).send({message: 'No post found!'})
-    //     }
-    //     res.send(posts)
-    // })
-    // .catch(e => res.status(500).send(e))
+    // const {data: posts, status} =  Post.fetchAll() || {}
+    // console.log('posts : ', posts)
+    // console.log(Post.fetchAll())
+    // // console.log(posts)
+    // res.send({})
+    Post.find({}).exec()
+    .then(posts => {
+        if (!posts.length) {
+            return res.status(404).send({message: 'No post found!'})
+        }
+        res.send(posts)
+    })
+    .catch(e => res.status(500).send(e))
 }
 
 exports.postShow = (req, res) => {
     const { id } = req.params
-    Post.show(id)
-    .then(result => {
-        res.send(result)
-    })
-    .catch(e => res.status(500).send(e))
-    // Post.findById(id).exec()
-    // .then(post => {
-    //     if (!post.length) {
-    //         return res.status(404).send({message: 'No post found!'})
-    //     }
-    //     res.send(post)
+    // Post.show(id)
+    // .then(result => {
+    //     res.send(result)
     // })
     // .catch(e => res.status(500).send(e))
+    Post.findById(id).exec()
+    .then(post => {
+        if (!post.length) {
+            return res.status(404).send({message: 'No post found!'})
+        }
+        res.send(post)
+    })
+    .catch(e => res.status(500).send(e))
 }
 
 exports.postInsert = (req, res) => {
