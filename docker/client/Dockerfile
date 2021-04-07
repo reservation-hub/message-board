@@ -1,7 +1,11 @@
 FROM node:14
 
-WORKDIR /app/client
+WORKDIR /app
 
-COPY . .
+COPY ./app/client .
 
-# CMD [ "npm", "start" ]
+COPY ./scripts/client /scripts
+
+RUN chmod +x /scripts/*
+
+ENTRYPOINT [ "/scripts/entrypoint.sh" ]
