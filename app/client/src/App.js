@@ -1,10 +1,10 @@
 import logo from './logo.svg';
-import axios from 'axios'
+// import axios from 'axios'
 import './App.css';
 
-const fetchData = () => {
+// const fetchData = () => {
   
-}
+// }
 
 let data
 axios
@@ -22,7 +22,6 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          { data }
           Edit <code>src/aaApp.js</code> and save to reload.
         </p>
         <a

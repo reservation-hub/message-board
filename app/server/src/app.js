@@ -10,4 +10,4 @@ app.use(postRoutes)
 
 app.listen(8090, () => {
     console.log('server is up')
-})
+})  
