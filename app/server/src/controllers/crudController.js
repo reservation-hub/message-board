@@ -1,4 +1,4 @@
-const { models } = require("mongoose")
+const { models, isValidObjectId } = require("mongoose")
 
 class CrudController {
     constructor(model) {
@@ -17,10 +17,14 @@ class CrudController {
     } 
 
     show(req, res) {
+        console.log('SHOW SHOW SHOW')
         const { id } = req.params
+        if (!isValidObjectId(id)) {
+            res.status(404).send({message: 'Invalid ID'})
+        }
         this.model.findById(id).exec()
         .then(model => {
-            if (!model.length) {
+            if (!model) {
                 return res.status(404).send({message: 'err'})
             }
             res.send(model)
@@ -36,3 +40,5 @@ class CrudController {
         .catch(e => res.status(500).send(e))
     }
 }
+
+module.exports = { CrudController }

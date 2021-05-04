@@ -5,4 +5,4 @@ echo "Running npm install ..."
 yarn install
 
 echo "Running npm run $COMMAND ..."
-yarn start
+yarn $COMMAND

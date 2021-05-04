@@ -1,5 +1,7 @@
+const { isValidObjectId } = require('mongoose')
 const db = require('../db/mongoose')
 const Post = require('../models/post')
+const { CrudController } = require('./crudController')
 
 exports.postIndex =  (req, res) => {
     // const {data: posts, status} =  Post.fetchAll() || {}
@@ -19,19 +21,22 @@ exports.postIndex =  (req, res) => {
 
 exports.postShow = (req, res) => {
     const { id } = req.params
-    // Post.show(id)
-    // .then(result => {
-    //     res.send(result)
-    // })
-    // .catch(e => res.status(500).send(e))
-    Post.findById(id).exec()
-    .then(post => {
-        if (!post.length) {
-            return res.status(404).send({message: 'No post found!'})
-        }
-        res.send(post)
+    // if (!isValidObjectId(id)) {
+    //     res.status(404).send({message: 'Invalid ID'})
+    // }
+    Post.show(id)
+    .then(result => {
+        res.send(result)
     })
     .catch(e => res.status(500).send(e))
+    // Post.findById(id).exec()
+    // .then(post => {
+    //     if (!post) {
+    //         return res.status(404).send({message: 'No post found!!!'})
+    //     }
+    //     res.send(post)
+    // })
+    // .catch(e => res.status(500).send(e))
 }
 
 exports.postInsert = (req, res) => {

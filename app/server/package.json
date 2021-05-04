@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon src/app.js"
+    "serve": "nodemon --legacy-watch src/app.js"
   },
   "keywords": [],
   "author": "",
