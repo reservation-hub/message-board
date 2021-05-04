@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "Running in NODE_ENV=$NODE_ENV COMMAND=$COMMAND"
 
-echo "Running npm install ..."
+echo "Running yarn install ..."
 yarn install
 
-echo "Running npm run $COMMAND ..."
+echo "Running yarn run $COMMAND ..."
 yarn $COMMAND
