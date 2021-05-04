@@ -4,5 +4,17 @@
 
 ```
 $ source aliases.sh
-$ board-lcl
+$ baord-init
+```
+
+Client 立ち上げ
+
+```
+$ board-lcl-client
+```
+
+Server 立ち上げ（別の窓）
+
+```
+$ board-lcl-server
 ```
