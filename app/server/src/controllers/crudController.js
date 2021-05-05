@@ -1,36 +1,35 @@
-const { filterUndefined } = require('../../lib/filter')
-
-exports.errorHandler = (e, res) => {
-    console.log(e)
-    if (e.kind === "ObjectId") {
-        return res.status(400).send({message: 'Invalid Id'})
-    }
-    console.log(e)
-    return res.status(500).send({message: 'Internal Server Error'})
-
-}
-
 exports.crudController = {
-    fetchAll(Model, req, res) {
+    fetchAll(req, res, next, { Model }) {
         Model.find({}).exec()
-        .then(posts => {
-            if (!posts.length) {
-                return res.status(404).send({message: 'No post found!'})
-            }
-            res.send(posts)
+        .then(models => {
+            return res.send(models)
         })
-        .catch(e => errorHandler(e, res))
+        .catch(e => next(e))
     },
-    fetch() {
-
+    fetch(req, res, next, { Model, id }) {
+        Model.findById(id).orFail().exec()
+        .then(model => {
+            return res.send(model)
+        })
+        .catch(e => next(e))
     },
-    update() {
-
+    insert(req, res, next, { Model }) {
+        Model.save()
+        .then(result => res.status(201).send(result))
+        .catch(e => next(e))
     },
-    delete() {
-
+    update(req, res, next, { Model, id, params }) {
+        Model.findByIdAndUpdate(id, params, {new: true, omitUndefined: true, runValidators: true}).orFail().exec()
+        .then(model => {
+            return res.send(model)
+        })
+        .catch(e => next(e))
     },
-    insert() {
-
-    }
+    delete(req, res, next, { Model, id }) {
+        Model.findOneAndDelete({_id: id}).orFail().exec()
+        .then(result => {
+            return res.send({message: 'Successfully deleted'})
+        })
+        .catch(e => next(e))
+    },
 }
