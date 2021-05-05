@@ -1,16 +1,16 @@
 const dbOptions = {
     useNewUrlParser: true,
     useCreateIndex: true,
-    dbName: 'message-board',
-    user: 'root',
-    pass: 'root',
+    dbName: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
     auth: {
         authdb: 'admin'
     },
     useUnifiedTopology: true,
     useFindAndModify: false,
 }
-const DB_HOST = 'mongodb://root:root@db:27017/admin'
+const DB_HOST = process.env.DB_HOST
 
 module.exports = {
     dbOptions,
