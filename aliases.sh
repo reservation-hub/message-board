@@ -1,6 +1,7 @@
 alias board-init=" \
     git submodule update --init && \
-    echo '.envに環境変数を設定してください'
+    cp mb-deploy/.env.development . && \
+    cp mb-deploy/.env.production .
 "
 
 alias board-build="docker-compose build"
