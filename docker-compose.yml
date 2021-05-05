@@ -48,12 +48,29 @@ services:
       - COMMAND=${COMMAND:-serve}
       - PORT=8090
     env_file:
-      - .env
+      - .env.development
     ports: 
       - 8090:8090
     volumes:
       - ./app/server:/app
       - server-node_modules:/app/node_modules
     tty: true
+    depends_on:
+      - db
+
+  server-prd:
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+    container_name: prototype-server_prd
+    image: prototype-server_prd
+    environment: 
+      - NODE_ENV=production
+      - COMMAND=${COMMAND:-start}
+      - PORT=8090
+    # env_file: 
+    #   - .env.production
+    ports: 
+      - 8090:8090
     depends_on:
       - db

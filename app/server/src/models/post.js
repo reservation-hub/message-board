@@ -28,8 +28,6 @@ postSchema.methods.setParams = function(object) {
     }
 }
 
-postSchema.statics = require('./crudSchema')
-
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post

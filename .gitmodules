@@ -1,0 +1,3 @@
+[submodule "mb-deploy"]
+	path = mb-deploy
+	url = git@github.com:reservation-hub/mb-deploy.git
