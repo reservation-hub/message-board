@@ -1,44 +1,30 @@
 const Post = require('../models/post')
-const { errorHandler } = require('./crudController')
+const { crudController } = require('./crudController')
 const { filterUndefined } = require('../../lib/filter')
 
-exports.postIndex = (req, res) => {
-    Post.find({}).exec()
-    .then(posts => {
-        if (!posts.length) {
-            return res.status(404).send({message: 'No post found!'})
-        }
-        res.send(posts)
-    })
-    .catch(e => errorHandler(e, res))
+exports.postIndex = (req, res, next) => {
+    crudController.fetchAll(req, res, next, { Model: Post })
 }
 
-exports.postInsert = (req, res) => {
+exports.postShow = (req, res, next) => {
+    const { id } = req.params
+    crudController.fetch(req, res, next, {Model: Post, id})
+}
+
+exports.postInsert = (req, res, next) => {
     const { title, name, message } = req.body
     const post = new Post({title, name, message})
-    post.save()
-    .then(result => res.status(201).send(result))
-    .catch(e => errorHandler(e, res))
+    crudController.insert(req, res, next, { Model: post })
 }
 
-exports.postUpdate = async (req, res) => {
+exports.postUpdate = async (req, res, next) => {
     const { title, name, message } = req.body
     const { id } = req.params
-    const whiteList = filterUndefined({ title, name, message })
-    Post.findByIdAndUpdate(id, whiteList, {new: true}).exec()
-    .then(post => {
-        if (!post) return res.status(404).send({message: 'No post matched'})
-        return res.send(post)
-    })
-    .catch(e => errorHandler(e, res))
+    const params = filterUndefined({ title, name, message })
+    crudController.update(req, res, next, { Model: Post, id, params })
 }
 
-exports.postDelete = (req, res) => {
-    const { id:_id } = req.params
-    Post.findOneAndDelete({_id}).exec()
-    .then(result => {
-        if (!result) return res.status(404).send({message: 'No post matched'})
-        return res.send({message: 'Successfully deleted'})
-    })
-    .catch(e => errorHandler(e, res))
+exports.postDelete = (req, res, next) => {
+    const { id } = req.params
+    crudController.delete(req, res, next, {Model: Post, id})
 }
