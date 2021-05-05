@@ -1,0 +1,7 @@
+{
+    "editor.fontFamily": "D2Coding, Consolas, 'Courier New', monospace",
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "editor.tabSize": 2
+}
