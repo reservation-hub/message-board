@@ -1,25 +1,30 @@
 const Post = require('../models/post')
-const { crudController, errorHandler } = require('./crudController')
+const { crudController } = require('./crudController')
 const { filterUndefined } = require('../../lib/filter')
 
-exports.postIndex = (req, res) => {
-    crudController.fetchAll(Post, res)
+exports.postIndex = (req, res, next) => {
+    crudController.fetchAll(req, res, next, { Model: Post })
 }
 
-exports.postInsert = (req, res) => {
+exports.postShow = (req, res, next) => {
+    const { id } = req.params
+    crudController.fetch(req, res, next, {Model: Post, id})
+}
+
+exports.postInsert = (req, res, next) => {
     const { title, name, message } = req.body
     const post = new Post({title, name, message})
-    crudController.insert(post, res)
+    crudController.insert(req, res, next, { Model: post })
 }
 
-exports.postUpdate = async (req, res) => {
+exports.postUpdate = async (req, res, next) => {
     const { title, name, message } = req.body
     const { id } = req.params
-    const whiteList = filterUndefined({ title, name, message })
-    crudController.update(Post, id, whiteList, res)
+    const params = filterUndefined({ title, name, message })
+    crudController.update(req, res, next, { Model: Post, id, params })
 }
 
-exports.postDelete = (req, res) => {
+exports.postDelete = (req, res, next) => {
     const { id } = req.params
-    crudController.delete(Post, id, res)
+    crudController.delete(req, res, next, {Model: Post, id})
 }
