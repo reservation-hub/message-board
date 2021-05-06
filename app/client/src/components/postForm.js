@@ -2,34 +2,30 @@ import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 
 const PostForm = () => {
+    
     const [ inputs, setInputs ] = useState({
         title: '',
         name: '',
         message: ''
     })
 
-    const onChange = useCallback(
-        (e) => {
+    const onChange = useCallback((e) => {
             const { name, value } = e.target
-            setInputs({
-                ...inputs,
-                [name]: value,
-            })
-            console.log(inputs)
+            setInputs({ ...inputs, [name]: value })
         },
-        [inputs],
+        [inputs]
     )
-    
+
     const onSubmit = () => {
         axios.post("http://localhost:8090/", {
             title: inputs.title,
             name: inputs.name,
             message: inputs.message
-        }).then(res => console.log(res))
+        })
     }
 
     return(
-        <form className="postform" onSubmit= { onSubmit } >
+        <form className="postform">
             <div className="form-title">
                 <label htmlFor="title">
                     title
@@ -49,7 +45,7 @@ const PostForm = () => {
                 <textarea in="message" name="message" onChange={ onChange } />
             </div>
             <div className="form-button">
-                <button onSubmit={ onSubmit } >submit</button>
+                <button onClick={ onSubmit } >submit</button>
             </div>
         </form>
     );
