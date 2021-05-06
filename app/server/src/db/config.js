@@ -8,7 +8,7 @@ const dbOptions = {
         authdb: 'admin'
     },
     useUnifiedTopology: true,
-    useFindAndModify: false,
+    useFindAndModify: true,
 }
 const DB_HOST = process.env.DB_HOST
 
