@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { post } = require('../routes/posts')
+const bcrypt = require("bcrypt")
 
 const postSchema = new mongoose.Schema(
     {
@@ -33,6 +34,15 @@ postSchema.methods.setParams = function(object) {
     }
 }
 
+postSchema.pre("save", async function (req,res,next) {
+    try{
+        const salt = await bcrypy.genSalt()
+        this.password = await bcrypt.hash(this.password,salt)
+        next()
+    }catch{
+        res.status(500).send("internal server error")
+    }
+})
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post
