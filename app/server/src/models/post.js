@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema(
         },
         password: {
             type:String,
-            required: true,
+            required: [true,"Message入力して下さい"],
             trim:true
         }
     }, {
