@@ -18,7 +18,6 @@ const postSchema = new mongoose.Schema(
         },
         password:{
             type:String,
-          
         }
     }, {
         timestamps: true,
@@ -32,7 +31,7 @@ postSchema.methods.setParams = function(object) {
 
 postSchema.pre("save", async function (req,res,next) {
     try{
-        const salt = await bcrypy.genSalt()
+        const salt = await bcrypt.genSalt()
         this.password = await bcrypt.hash(this.password,salt)
         next()
     }catch{

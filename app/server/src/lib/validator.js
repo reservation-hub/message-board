@@ -6,7 +6,6 @@ exports.validator = [
     .not()
     .isEmpty()
     .isLength({min:3})
-    .run(req)
     .withMessage("Title is required"),
 
     
@@ -15,7 +14,6 @@ exports.validator = [
     .not()
     .isEmpty()
     .isLength({min:3})
-    .run(req)
     .withMessage("Name is required"),
 
     
@@ -24,7 +22,6 @@ exports.validator = [
     .not()
     .isEmpty()
     .isLength({min:3})
-    .run(req)
     .withMessage("Message is required"),
 
     
@@ -33,7 +30,6 @@ exports.validator = [
     .not()
     .isEmpty()
     .isLength({min:6})
-    .run(req)
     .withMessage("Password is required"),
     (req,res,next)=>{
         const errors = validationResult(req)
