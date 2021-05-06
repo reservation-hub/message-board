@@ -5,17 +5,17 @@ const postSchema = new mongoose.Schema(
     {
         title: {
             type: String,
-            required: true,
-            trim: true,
+            required: [true, "Title入力して下さい"],
+            trim: true
         },
         name: {
             type: String,
-            required: true,
+            required: [true,"Name入力して下さい"],
             trim: true
         },
         message: {
             type: String,
-            required: true,
+            required: [true,"Message入力して下さい"],
             trim: true
         },
         password: {
