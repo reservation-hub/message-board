@@ -3,7 +3,6 @@ const { errorHandler } = require('./crudController')
 const { filterUndefined } = require('../../lib/filter')
 
 exports.postIndex = (req, res) => {
-    
     Post.find({}).exec()
     .then(posts => {
         if (!posts.length) {
@@ -15,6 +14,7 @@ exports.postIndex = (req, res) => {
 }
 
 exports.postInsert = (req, res) => {
+    console.log(req.body)
     const { title, name, message, password } = req.body
     const post = new Post({title, name, message, password})
     post.save()
