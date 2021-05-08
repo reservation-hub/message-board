@@ -11,7 +11,7 @@ exports.postIndex = (req, res,next) => {
     Post.find({}).exec()
     .then(posts => {
         if (!posts.length) {
-            next({error:{name:"CastError"}})
+            return res.status(404).send({message: 'No post found!'})
         }
         res.send(posts)
     })
@@ -40,9 +40,7 @@ exports.postUpdate = async (req, res,next) => {
     const whiteList = filterUndefined({ title, name, message, password })
     Post.findByIdAndUpdate(id, whiteList, {new: true}).exec()
     .then(post => {
-        if (!post){
-            next({error:{name:"CastError"}})
-        }
+        if (!post) return res.status(404).send({message: 'No post matched'})
         return res.send(post)
     })
     .catch(next)
