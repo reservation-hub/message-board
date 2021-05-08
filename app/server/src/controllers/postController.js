@@ -3,6 +3,7 @@ const { errorHandler } = require('./crudController')
 const { filterUndefined } = require('../../lib/filter')
 
 exports.postIndex = (req, res) => {
+    
     Post.find({}).exec()
     .then(posts => {
         if (!posts.length) {
@@ -14,17 +15,18 @@ exports.postIndex = (req, res) => {
 }
 
 exports.postInsert = (req, res) => {
-    const { title, name, message } = req.body
-    const post = new Post({title, name, message})
+    const { title, name, message, password } = req.body
+    const post = new Post({title, name, message, password})
     post.save()
     .then(result => res.status(201).send(result))
     .catch(e => errorHandler(e, res))
+    
 }
 
 exports.postUpdate = async (req, res) => {
-    const { title, name, message } = req.body
+    const { title, name, message,password} = req.body
     const { id } = req.params
-    const whiteList = filterUndefined({ title, name, message })
+    const whiteList = filterUndefined({ title, name, message, password })
     Post.findByIdAndUpdate(id, whiteList, {new: true}).exec()
     .then(post => {
         if (!post) return res.status(404).send({message: 'No post matched'})

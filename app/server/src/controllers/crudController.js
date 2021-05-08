@@ -5,7 +5,9 @@ exports.errorHandler = (e, res) => {
     if (e.kind === "ObjectId") {
         return res.status(400).send({message: 'Invalid Id'})
     }
+    console.log(e)
     return res.status(500).send({message: 'Internal Server Error'})
+
 }
 
 exports.crudController = {
