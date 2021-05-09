@@ -2,7 +2,9 @@ const Post = require('../models/post')
 const { errorHandler } = require('./crudController')
 const { filterUndefined } = require('../../lib/filter')
 
+
 exports.postIndex = (req, res,next) => {
+
 
     Post.find({}).exec()
     .then(posts => {
@@ -14,7 +16,9 @@ exports.postIndex = (req, res,next) => {
     .catch(next)
 }
 
+
 exports.postInsert = (req, res,next) => {
+
 
     const { title, name, message, password } = req.body
 
