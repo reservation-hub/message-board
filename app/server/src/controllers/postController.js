@@ -1,18 +1,11 @@
 const Post = require('../models/post')
 const asyncHandler = require("../lib/asyncHandler")
 const { filterUndefined } = require('../../lib/filter')
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-exports.postIndex = (req, res) => {
-=======
-exports.postIndex = (req, res,next) => {
-=======
 const ErrorResponse = require("../utils/errorResponse")
-exports.postIndex = asyncHandler ((req, res,next) => {
->>>>>>> finished error handling
 
->>>>>>> error handlers
+
+exports.postIndex = asyncHandler ((req, res,next) => {
+
     Post.find({}).exec()
     .then(posts => {
         if (!posts.length) {
@@ -25,17 +18,9 @@ exports.postIndex = asyncHandler ((req, res,next) => {
     
 })
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-exports.postInsert = (req, res) => {
-    console.log(req.body)
-=======
-exports.postInsert = (req, res,next) => {
-=======
-exports.postInsert = asyncHandler((req, res,next) => {
->>>>>>> finished error handling
 
->>>>>>> error handlers
+exports.postInsert = asyncHandler((req, res,next) => {
+
     const { title, name, message, password } = req.body
 
     const post = new Post({title, name, message, password})
