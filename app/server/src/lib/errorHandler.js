@@ -1,13 +1,11 @@
 const ErrorResponse = require("../utils/errorResponse")
 
 const errorHandler = (err,req,res,next)=>{
-    console.log(err)
     let error  = {...err}
-    console.log(error)
     error.message = err.message
 
     if(err.name === "CastError"){
-        const message = "The resource you are trying to find does't exist or cannot be found"
+        const message = "Resource not found"
         error = new ErrorResponse(message,404)
     }
     if(err.code === 11000){
