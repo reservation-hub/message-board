@@ -26,7 +26,6 @@ exports.postInsert = asyncHandler((req, res,next) => {
     const post = new Post({title, name, message, password})
     post.save()
     .then(result => res.status(201).send(result))
-    .catch(next)
     
 })
 
