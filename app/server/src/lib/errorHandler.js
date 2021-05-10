@@ -5,7 +5,7 @@ const errorHandler = (err,req,res,next)=>{
     let error  = {...err}
     console.log(err)
     error.message = err.message
-
+    console.log(error)
     if(err.name === "CastError"){
         const message = "Resource not found"
         error = new ErrorResponse(message,404)
@@ -15,7 +15,6 @@ const errorHandler = (err,req,res,next)=>{
         error = new ErrorResponse(message,400)
     }
 
-    
     if(error.errors){
         const message = Object.values(error.errors).map(error=>error.msg).join(" , ")
         error = new ErrorResponse(message,400)
@@ -26,6 +25,7 @@ const errorHandler = (err,req,res,next)=>{
     might add more errors for password checks that we might not be using right now 
     or that we will have in res-hub
     */
+
    res.status(error.statusCode || 500).json({
        success: false,
        error:error.message || "Server Error"
