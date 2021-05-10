@@ -13,6 +13,12 @@ const errorHandler = (err,req,res,next)=>{
         error = new ErrorResponse(message,400)
     }
 
+    if(typeof(error.result === undefined)){
+        const errMsg = (error.message).split("\"\{")[0]
+        const message = errMsg
+
+        error = new ErrorResponse(message,404)
+    }
     if(error.errors){
         const message = Object.values(error.errors).map(error=>error.msg).join(" , ")
         error = new ErrorResponse(message,400)
