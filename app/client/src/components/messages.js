@@ -1,24 +1,33 @@
 import React from 'react';
-// import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { deleteMessage } from '../action/boardAction';
 
-const Messages = ({ post }) => {
+const Messages = (props) => {
 
-  const { title, name, message } = post
+  const dispatch = useDispatch()
+  
+  const onDelete = async (_id) => {
+    dispatch(deleteMessage(props.props._id))
+    window.location.href = '/'
+  }
 
   return(
     <div className="message-box">
       <div className="message-info">
         <span className="message-title">
-          title: { title }
+          title: {props.props.title}
         </span>
         <span className="message-name">
-          name: { name } 
+          name:  {props.props.name}
         </span>
       </div>
       <div className="message-body">
         <span className="message-dt">
-          message: { message } 
+          message: {props.props.message}
         </span>
+      </div>
+      <div>
+        <button onClick={() => onDelete(props.props._id)} >delete</button>
       </div>
     </div>
   );
