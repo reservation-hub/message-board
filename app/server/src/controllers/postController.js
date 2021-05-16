@@ -2,13 +2,12 @@ const Post = require('../models/post')
 const asyncHandler = require("../lib/asyncHandler")
 const { filterUndefined } = require('../../lib/filter')
 const ErrorResponse = require("../utils/errorResponse")
-
+const bcrypt = require('bcrypt')
 
 exports.postIndex = asyncHandler (async (req, res,next) => {
 
     await Post.find({}).orFail().exec()
     .then(posts => {
-      
             res.send(posts)
         }
         
@@ -39,9 +38,18 @@ exports.postUpdate = asyncHandler(async (req, res,next) => {
 
 exports.postDelete = asyncHandler(async (req, res,next) => {
     const { id:_id } = req.params
-    await Post.findOneAndDelete({_id}).orFail().exec()
-    .then( deleted=>{
-        res.send({message: 'Successfully deleted'})
-    }
-    )
+    const {password} = req.body
+    await Post.findOne({_id}).orFail().exec()
+    .then(data=>{
+        const hashedPass = data.password
+        bcrypt.compare(password,hashedPass,function(err,result){
+            if(result == false){
+                res.send("not password didnt match")
+            }
+            data.deleteOne()
+            .then(res.send("deleted"))
+        })
+    })
+    
+    
 })
