@@ -1,46 +1,47 @@
 const Post = require('../models/post')
-const { errorHandler } = require('./crudController')
+const asyncHandler = require("../lib/asyncHandler")
 const { filterUndefined } = require('../../lib/filter')
+const ErrorResponse = require("../utils/errorResponse")
 
-exports.postIndex = (req, res) => {
-    Post.find({}).exec()
+
+exports.postIndex = asyncHandler (async (req, res,next) => {
+
+    await Post.find({}).orFail().exec()
     .then(posts => {
-        if (!posts.length) {
-            return res.status(404).send({message: 'No post found!'})
+      
+            res.send(posts)
         }
-        res.send(posts)
-    })
-    .catch(e => errorHandler(e, res))
-}
+        
+    )
+    
+})
 
-exports.postInsert = (req, res) => {
-    console.log(req.body)
+
+exports.postInsert = asyncHandler((req, res,next) => {
+
     const { title, name, message, password } = req.body
+
     const post = new Post({title, name, message, password})
     post.save()
     .then(result => res.status(201).send(result))
-    .catch(e => errorHandler(e, res))
     
-}
+})
 
-exports.postUpdate = async (req, res) => {
-    const { title, name, message,password} = req.body
+exports.postUpdate = asyncHandler(async (req, res,next) => {
+    const { title, name, message, password} = req.body
     const { id } = req.params
     const whiteList = filterUndefined({ title, name, message, password })
-    Post.findByIdAndUpdate(id, whiteList, {new: true}).exec()
+    await Post.findByIdAndUpdate(id, whiteList, {new: true}).orFail().exec()
     .then(post => {
-        if (!post) return res.status(404).send({message: 'No post matched'})
-        return res.send(post)
+         return res.send(post)
     })
-    .catch(e => errorHandler(e, res))
-}
+})
 
-exports.postDelete = (req, res) => {
+exports.postDelete = asyncHandler(async (req, res,next) => {
     const { id:_id } = req.params
-    Post.findOneAndDelete({_id}).exec()
-    .then(result => {
-        if (!result) return res.status(404).send({message: 'No post matched'})
-        return res.send({message: 'Successfully deleted'})
-    })
-    .catch(e => errorHandler(e, res))
-}
+    await Post.findOneAndDelete({_id}).orFail().exec()
+    .then( deleted=>{
+        res.send({message: 'Successfully deleted'})
+    }
+    )
+})
