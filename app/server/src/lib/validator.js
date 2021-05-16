@@ -5,8 +5,10 @@ exports.validator = [
     .trim()
     .not()
     .isEmpty()
+    .withMessage("Title is required")
+    .bail()
     .isLength({min:3})
-    .withMessage("Title is required"),
+    .withMessage("Title has to have 3 or more than 3 characters"),
 
     
     check('name')
@@ -14,7 +16,9 @@ exports.validator = [
     .not()
     .isEmpty()
     .isLength({min:3})
-    .withMessage("Name is required"),
+    .withMessage("Name is required")
+    .bail()
+    .withMessage("Name has to have 3 or more than 3 characters"),
 
     
     check('message')
@@ -22,20 +26,26 @@ exports.validator = [
     .not()
     .isEmpty()
     .isLength({min:3})
-    .withMessage("Message is required"),
+    .withMessage("Message is required")
+    .bail()
+    .withMessage("Message has to have 3 or more than 3 characters"),
 
     
     check('password')
     .trim()
     .not()
     .isEmpty()
+    .withMessage("Password is required")
+    .bail()
     .isLength({min:6})
-    .withMessage("Password is required"),
+    .withMessage("Password must be more than 6 letters")
+    ,
     (req,res,next)=>{
         const errors = validationResult(req)
         if(!errors.isEmpty()){
-            return res.status(422).json({errors:errors.array()})
+            next(errors)
         }
         next()
+        
     }
 ]

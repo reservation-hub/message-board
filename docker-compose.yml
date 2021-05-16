@@ -4,6 +4,7 @@ volumes:
   client-node_modules:
   data-node:
 
+
 services:
 
   # node apps
@@ -28,8 +29,7 @@ services:
   db:
     image: mongo:4.2
     container_name: prototype_mongodb
-    volumes:
-        - data-node:/data/db
+    
     ports:
         - 27017:27017
     environment:
