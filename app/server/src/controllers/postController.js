@@ -41,13 +41,19 @@ exports.postDelete = asyncHandler(async (req, res,next) => {
     const {password} = req.body
     await Post.findOne({_id}).orFail().exec()
     .then(data=>{
+        
         const hashedPass = data.password
+
         bcrypt.compare(password,hashedPass,function(err,result){
             if(result == false){
-                res.send("not password didnt match")
-            }
+                res.status(401).send({message:"Password didn't match"})
+            }else{
+
             data.deleteOne()
-            .then(res.send("deleted"))
+            .then(res.status(202).send({message:"Deleted successfully"}))
+        
+            }
+        
         })
     })
     
