@@ -14,7 +14,6 @@ exports.postIndex = asyncHandler (async (req, res,next) => {
 
 })
 
-
 exports.postInsert = asyncHandler((req, res,next) => {
     const { title, name, message, password } = req.body
     const post = new Post({title, name, message, password})
