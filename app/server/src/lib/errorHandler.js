@@ -17,7 +17,6 @@ const errorHandler = (err,req,res,next)=>{
     if(error.errors){
         const message = Object.values(error.errors).map(error=>error.msg).join(" , ")
         error = new ErrorResponse(message,400)
-
     }
 
     /*
