@@ -19,11 +19,6 @@ const postSchema = new mongoose.Schema(
         timestamps: true,
     })
 
-
-
-
- 
-
 postSchema.pre("save", async function (req,res,next) {
     try {
         const salt = await bcrypt.genSalt()
@@ -33,7 +28,6 @@ postSchema.pre("save", async function (req,res,next) {
         res.status(500).send("internal server error")
     }
 })
-
 
 postSchema.pre('findOneAndUpdate', async function () {
     const salt = await bcrypt.genSalt()
