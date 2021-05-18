@@ -4,12 +4,10 @@ const { filterUndefined } = require('../../lib/filter')
 const ErrorResponse = require("../utils/errorResponse")
 const bcrypt = require('bcrypt')
 
-exports.postIndex = async (req, res, next) => {
-  try {
-    const posts = await Post.find({})
-    return res.send(posts)
-  } catch (e) {next(e)}
-}
+exports.postIndex = asyncHandler(async (req, res, next) => {
+  const posts = await Post.find({})
+  return res.send(posts)
+})
 
 exports.postInsert = asyncHandler((req, res,next) => {
   const { title, name, message, password } = req.body
