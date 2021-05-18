@@ -16,12 +16,10 @@ exports.postIndex = asyncHandler (async (req, res,next) => {
 
 
 exports.postInsert = asyncHandler((req, res,next) => {
-
     const { title, name, message, password } = req.body
     const post = new Post({title, name, message, password})
     post.save()
     return res.status(201).send(post)
-
 })
 
 exports.postUpdate = asyncHandler(async (req, res,next) => {
@@ -40,7 +38,6 @@ exports.postDelete = asyncHandler(async (req, res,next) => {
     const hashedPass = post.password
 
     bcrypt.compare(password,hashedPass,function(err,result){
-
         if(result == false){
             res.status(401).send({message:"Password didn't match"})
         }else{
