@@ -4,8 +4,14 @@ const { filterUndefined } = require('../../lib/filter')
 const bcrypt = require('bcrypt')
 
 exports.postIndex = asyncHandler (async (req, res,next) => {
+    const page = req.query.page
+    const limit = 10
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
     const posts = await Post.find({}).orFail().exec()
-    return res.send(posts)
+    const  result = posts.slice(startIndex,endIndex)
+    const totalpages = Math.ceil((posts.length)/10)
+    res.status(200).send({result:result,pages:totalpages})
 })
 
 
@@ -46,3 +52,5 @@ exports.postDelete = asyncHandler(async (req, res,next) => {
     
     
 })
+
+
