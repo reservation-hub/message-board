@@ -1,0 +1,15 @@
+.header-area {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid;
+  display: inline-flex;
+}
+
+.modal-button {
+  width: 6rem;
+  height: 2rem;
+  margin: .5rem;
+  border: none;
+  border-radius: .25rem;
+  color: #999;
+}

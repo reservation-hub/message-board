@@ -1,12 +1,11 @@
-import Template from './layout/template';
-import {  BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import React from 'react';
+import {  BrowserRouter, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import reduxThunk from 'redux-thunk'
-import './css/App.css';
-import reduce from './reduce/rootReducer'
-
+import reduce from './reducers/rootReducer'
+import Template from './layout/template'
+import history from './history'
+import './css/App.css'
 
 function App() {
 
@@ -17,7 +16,7 @@ function App() {
 
   return (
     <div>
-      <Provider store={ store }>
+      <Provider store={ store } history={ history }>
         <BrowserRouter>
           <Route path="/" component={ Template } />
         </BrowserRouter>

@@ -1,13 +1,13 @@
-import React from 'react';
-import PostForm from '../components/postForm';
-import MessageList from '../components/messageList';
+import React from 'react'
+// import PostForm from '../components/postForm'
+import MessageList from '../components/messageList'
+import Hedear from '../components/header'
 
 const Template = () => {
 
     return(
         <div>
-            <h1>message board</h1>
-            <PostForm />
+            <Hedear />
             <MessageList />
         </div>
     );

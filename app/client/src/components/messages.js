@@ -1,15 +1,28 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteMessage } from '../action/boardAction';
+import React, { useState, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import { deleteMessage } from '../action/boardAction'
+// import history from '../history'
 
-const Messages = (props) => {
+const Messages = ( props ) => {
+
+  const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
   
-  const onDelete = async (_id) => {
-    dispatch(deleteMessage(props.props._id))
-    window.location.href = '/'
-  }
+  const onChange = useCallback(
+    (e) => {
+      e.preventDefault()
+      setPassword(e.target.value)
+    },
+    []
+  )
+
+  const onDelete = useCallback(
+    (_id, password) => {
+      dispatch(deleteMessage(_id, password))
+    },
+    [dispatch],
+  )
 
   return(
     <div className="message-box">
@@ -27,7 +40,17 @@ const Messages = (props) => {
         </span>
       </div>
       <div>
-        <button onClick={() => onDelete(props.props._id)} >delete</button>
+        <form>
+          <input 
+            type="password" 
+            name="password"
+            placeholder="input delete password"
+            autoComplete="off"
+            onChange={ onChange } 
+            value={ password } 
+          />
+          <button onClick={ () => onDelete(props.props._id, password) }>delete</button>
+        </form>
       </div>
     </div>
   );

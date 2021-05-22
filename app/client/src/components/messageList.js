@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Messages from './messages';
-import { fetchList } from '../action/boardAction';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import Messages from './messages'
+import { fetchList } from '../action/boardAction'
 
 const MessageList = () => {
 
@@ -14,7 +14,7 @@ const MessageList = () => {
 
   return(
     <div>
-      { posts.map(post => (
+      { posts && posts.map(post => (
         <Messages props={post} key={post._id} />
       )) }
     </div>
