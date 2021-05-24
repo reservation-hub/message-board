@@ -11,10 +11,12 @@ const Header = () => {
 
   const modalOpen = () => {
     dispatch(openModal())
+    document.body.style.overflow = "hidden";
   }
 
   const modalHide = () => {
     dispatch(hideModal())
+    document.body.style.overflow = "unset";
   }
 
   return(
@@ -32,4 +34,4 @@ const Header = () => {
   )
 }
 
-export default Header;
+export default Header

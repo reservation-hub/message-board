@@ -15,13 +15,11 @@ function App() {
     )
 
   return (
-    <div>
       <Provider store={ store } history={ history }>
         <BrowserRouter>
           <Route path="/" component={ Template } />
         </BrowserRouter>
       </Provider>
-    </div>
   );
 }
 

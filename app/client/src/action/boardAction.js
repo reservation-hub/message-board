@@ -5,6 +5,7 @@ export const FETCH_DATA = 'FETCH_DATA'
 export const ADD_MESSAGE = 'ADD_MESSAGE'
 export const DELETE_MESSAGE = 'DELETE_MESSAGE'
 
+
 export const fetchList = () => async (dispatch) => {
 
   await axios.get('http://localhost:8090/')
@@ -14,7 +15,6 @@ export const fetchList = () => async (dispatch) => {
         payload: res.data
         })
       })
-      .catch(e => console.log(e))
 }
 
 export const addMessage = (messageData) => async (dispatch) => {

@@ -1,16 +1,15 @@
-import React from 'react'
-// import PostForm from '../components/postForm'
+import Header from '../components/header'
 import MessageList from '../components/messageList'
-import Hedear from '../components/header'
 
 const Template = () => {
 
-    return(
-        <div>
-            <Hedear />
-            <MessageList />
-        </div>
-    );
+  return(
+    <>
+      <Header />
+      <MessageList />
+    </>
+  )
+
 }
 
-export default Template;
+export default Template

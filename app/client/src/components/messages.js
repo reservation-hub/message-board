@@ -1,12 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteMessage } from '../action/boardAction'
-// import history from '../history'
 
 const Messages = ( props ) => {
 
   const [password, setPassword] = useState('')
-
   const dispatch = useDispatch()
   
   const onChange = useCallback(
@@ -14,29 +12,35 @@ const Messages = ( props ) => {
       e.preventDefault()
       setPassword(e.target.value)
     },
-    []
+    [setPassword]
   )
 
   const onDelete = useCallback(
     (_id, password) => {
       dispatch(deleteMessage(_id, password))
+      window.location.href('/')
     },
     [dispatch],
+    
   )
 
   return(
     <div className="message-box">
       <div className="message-info">
         <span className="message-title">
-          title: {props.props.title}
+          {props.props.title}
         </span>
+        <div className="line"></div>
         <span className="message-name">
-          name:  {props.props.name}
+          name
+          <div className="indata">
+           {props.props.name}
+          </div>
         </span>
       </div>
       <div className="message-body">
         <span className="message-dt">
-          message: {props.props.message}
+          {props.props.message}
         </span>
       </div>
       <div>

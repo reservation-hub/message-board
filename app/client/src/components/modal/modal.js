@@ -5,8 +5,8 @@ import '../../css/modal.css'
 const Modal = ({ modalHide }) => {
 
   return(
-    <div className="modal-overlay">
-      <div className="modal">
+    <div className="modal-overlay" onClick={() => modalHide()}>
+      <div className="modal" onClick={e => e.stopPropagation()}>
         <Postform />
         <button className="modal-close" onClick={() => modalHide()}>close</button>
       </div>
