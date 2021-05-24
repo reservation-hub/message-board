@@ -1,4 +1,4 @@
-import { FETCH_DATA, ADD_MESSAGE, DELETE_MESSAGE } from '../action/boardAction';
+import { FETCH_DATA, ADD_MESSAGE, DELETE_MESSAGE } from '../action/boardAction'
 
 const initState = []
 
