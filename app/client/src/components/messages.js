@@ -1,11 +1,9 @@
 import React, { useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { deleteMessage } from '../action/boardAction'
+import moment from 'moment'
 
-const Messages = ( props ) => {
+const Messages = ({ posts, onDelete, error }) => {
 
   const [password, setPassword] = useState('')
-  const dispatch = useDispatch()
   
   const onChange = useCallback(
     (e) => {
@@ -14,36 +12,30 @@ const Messages = ( props ) => {
     },
     [setPassword]
   )
-
-  const onDelete = useCallback(
-    (_id, password) => {
-      dispatch(deleteMessage(_id, password))
-      window.location.href('/')
-    },
-    [dispatch],
-    
-  )
-
+  
   return(
     <div className="message-box">
       <div className="message-info">
         <span className="message-title">
-          {props.props.title}
+          {posts.title}
         </span>
         <div className="line"></div>
         <span className="message-name">
           name
           <div className="indata">
-           {props.props.name}
+           {posts.name}
           </div>
+        </span>
+        <span className="date">
+          { moment(posts.createdAt).format('Y/M/D') }Posted
         </span>
       </div>
       <div className="message-body">
         <span className="message-dt">
-          {props.props.message}
+          {posts.message}
         </span>
       </div>
-      <div>
+      <div className="delete-area">
         <form>
           <input 
             type="password" 
@@ -53,11 +45,14 @@ const Messages = ( props ) => {
             onChange={ onChange } 
             value={ password } 
           />
-          <button onClick={ () => onDelete(props.props._id, password) }>delete</button>
         </form>
+        <button onClick={ () => onDelete(posts._id, password) }>delete</button>
       </div>
+      { error.data ?
+          <span className="err-msg"> {error.data.message} </span> : null
+        }
     </div>
-  );
+  )
 }
 
 export default Messages;

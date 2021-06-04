@@ -1,16 +1,15 @@
-export const OPEN_MODAL = 'OPEN_MODAL'
-export const HIDE_MODAL = 'HIDE_MODAL'
+import { HIDE_MODAL, OPEN_MODAL } from "./types"
 
 export const openModal = () => {
   return {
     type: OPEN_MODAL,
-    payload: { modal:true }
+    payload: true
   }
 }
 
 export const hideModal = () => {
   return {
     type: HIDE_MODAL,
-    payload: { modal: false }
+    payload: false
   }
 } 

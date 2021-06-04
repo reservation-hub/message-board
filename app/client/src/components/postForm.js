@@ -1,10 +1,14 @@
 import React, { useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { addMessage } from '../action/boardAction'
+import { addMessage } from '../redux/action/boardAction'
+import { withRouter } from 'react-router-dom'
 import '../css/postFrom.css'
 
-const PostForm = () => {
-    
+const PostForm = ({ error }) => {
+  
+  const dispatch = useDispatch()
+
+  const [setErorr] = useState('please check input values')
   const [ inputs, setInputs ] = useState({
     title: '',
     name: '',
@@ -12,11 +16,8 @@ const PostForm = () => {
     message: ''
   })
     
-  const dispatch = useDispatch()
-
   const onChange = useCallback(
     (e) => {
-      e.preventDefault()
       const { name, value } = e.target
       setInputs({ ...inputs, [name]: value })
     },
@@ -25,9 +26,14 @@ const PostForm = () => {
 
   const onSubmit = useCallback(
     (e) => {
-        e.preventDefault()
-        dispatch(addMessage(inputs))  
-         window.location.href = ('/')
+      dispatch(addMessage(inputs))
+      setInputs({
+        title: '',
+        name: '',
+        password: '',
+        message: ''
+      })
+      e.preventDefault()  
     },
     [dispatch, inputs],
     ) 
@@ -76,15 +82,13 @@ const PostForm = () => {
             placeholder="Message" 
           />
         </div>
-        <button 
-          className="submit-button" 
-          type="submit"
-        >  
-          submit
-        </button>
+        <div className="error-area">
+          { error.data ? <span> { setErorr } </span> : null }
+        </div>
+        <button className="submit-button">submit</button>
       </form>
     </>
   );
 }
 
-export default PostForm;
+export default withRouter(PostForm);

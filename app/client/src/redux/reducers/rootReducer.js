@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import { boardReducer } from './boardReducer'
 import { modalReducer } from './modalReducer'
+import { defaultReducer } from './defaultReducer'
 
 const rootReducer = combineReducers({
   post: boardReducer,
-  modal: modalReducer
+  modal: modalReducer,
+  error:defaultReducer
 })
 
 

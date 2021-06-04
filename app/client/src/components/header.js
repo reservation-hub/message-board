@@ -1,30 +1,12 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { openModal, hideModal } from '../action/modalAction'
-import Modal from './modal/modal'
 import '../css/header.css'
 
-const Header = () => {
-
-  const modal = useSelector(state => state.modal.modal)
-  const dispatch = useDispatch()
-
-  const modalOpen = () => {
-    dispatch(openModal())
-    document.body.style.overflow = "hidden";
-  }
-
-  const modalHide = () => {
-    dispatch(hideModal())
-    document.body.style.overflow = "unset";
-  }
+const Header = ({ modalOpen }) => {
 
   return(
     <div className="header-area">
       <h1 className="title">
         Message board
       </h1>
-        {modal && <Modal modalHide={  modalHide } />}
         <button 
           className="modal-button" 
           onClick={ () => modalOpen() }>
@@ -32,6 +14,7 @@ const Header = () => {
         </button>
     </div>
   )
+
 }
 
 export default Header
