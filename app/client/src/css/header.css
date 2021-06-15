@@ -1,0 +1,28 @@
+.header-area {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  padding-top: 1rem;
+  display: inline-flex;
+  background: #F2BDCD;
+  justify-content: center;
+}
+
+.modal-button {
+  width: 8rem;
+  height: 2rem;
+  margin: .5rem;
+  border: none;
+  border-radius: .25rem;
+  color: #F2BDCD;
+  background: #FDFFFC;
+  position: absolute;
+  margin-left: 42.4rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.modal-button:hover {
+  background: #f0ebeb;
+  color: #011627;
+  transition: all .5s;
+}

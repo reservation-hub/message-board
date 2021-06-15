@@ -1,25 +1,16 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Messages from './messages';
-import { fetchList } from '../action/boardAction';
+import Messages from './messages'
+import '../css/message.css'
 
-const MessageList = () => {
-
-  const posts = useSelector(state => state.post)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-      dispatch(fetchList())
-  }, [dispatch])
+const MessageList = ({ posts, onDelete, error }) => {
 
   return(
-    <div>
+    <div className="box">
       { posts.map(post => (
-        <Messages props={post} key={post._id} />
+        <Messages posts={ post } key={ post._id } onDelete={ onDelete } error={ error } />
       )) }
     </div>
-  );
+  )
 
 }
 
-export default MessageList;
+export default MessageList
