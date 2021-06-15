@@ -14,15 +14,9 @@ const errorHandler = (err,req,res,next)=>{
     }
 
     if(error.errors){
-        const message = error.errors.map((error)=>{ 
-            console.log(error)
-            return{
-                label:error.param,
-                msg:error.msg
-            }
-        })
-        console.log(message)
-        error = new ErrorResponse(message,400)
+        message = error.errors
+        e = error.errors
+        error = new ErrorResponse(message,400,e)
     }
 
     /*
@@ -32,7 +26,8 @@ const errorHandler = (err,req,res,next)=>{
 
    res.status(error.statusCode || 500).json({
        success: false,
-       error:error.message || "Server Error"
+       error:error.message || "Server Error",
+       e: error.e
    }) 
 }
 
