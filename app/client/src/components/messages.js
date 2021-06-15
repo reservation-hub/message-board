@@ -1,18 +1,14 @@
 import React, { useState, useCallback } from 'react'
 import moment from 'moment'
+import useInput from '../utils/useInput'
 
 const Messages = ({ posts, onDelete, error }) => {
 
-  const [password, setPassword] = useState('')
-  
-  const onChange = useCallback(
-    (e) => {
-      e.preventDefault()
-      setPassword(e.target.value)
-    },
-    [setPassword]
-  )
-  
+  const [value, setvalue] = useInput({
+    password: ''
+  })
+  const hasError = error.data && error.data.id === posts._id
+
   return(
     <div className="message-box">
       <div className="message-info">
@@ -42,15 +38,15 @@ const Messages = ({ posts, onDelete, error }) => {
             name="password"
             placeholder="input delete password"
             autoComplete="off"
-            onChange={ onChange } 
-            value={ password } 
+            onChange={ setvalue } 
+            value={ value.password } 
           />
         </form>
-        <button onClick={ () => onDelete(posts._id, password) }>delete</button>
+        <button onClick={ () => onDelete(posts._id, value.password) }>delete</button>
       </div>
-      { error.data ?
-          <span className="err-msg"> {error.data.message} </span> : null
-        }
+      { hasError &&
+        <span className="err-msg"> {error.data.message} </span> 
+      }
     </div>
   )
 }

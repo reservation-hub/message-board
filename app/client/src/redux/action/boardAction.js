@@ -7,57 +7,42 @@ import {
   DELETE_MESSAGE
 } from './types'
 
+const isLoading = () => {
+  return { type: LOADING }
+}
+const isError = (err) => {
+  return { type:FAILURE, payload: err.response }
+}
 
 export const fetchList = () => async (dispatch) => {
 
-  dispatch({ type: LOADING })
-  return await axios.get('http://localhost:8090/')
-    .then(res => {
-      dispatch({
-        type: FETCH_DATA,
-        loading: false,
-        payload: res.data
-        })
-      })
-    .catch(e => console.log(e))
-      
+  dispatch(isLoading())
+  try {
+    const res = await axios.get('http://localhost:8090/')
+    dispatch({ type: FETCH_DATA, payload: res.data }) 
+  } catch (e) {
+    dispatch(isError(e))
+  }  
 }
 
 export const addMessage = (messageData) => async (dispatch) => {
 
-  await axios.post('http://localhost:8090/', { ...messageData })
-    .then(res => {
-      dispatch({
-        type: ADD_MESSAGE,
-        payload: res.data
-      }, 
-      window.location.replace('/'))
-    })
-    .catch(e => {
-      dispatch({
-        type: FAILURE,
-        payload: e.response
-      })
-    })
-
+  try {
+    const res = await axios.post('http://localhost:8090/', { ...messageData })
+    dispatch({ type: ADD_MESSAGE, payload: res.data })
+    window.location.replace('/')
+  } catch (e) {
+    dispatch(isError(e))
+  }
 }
 
 export const deleteMessage = (_id, password) => async (dispatch) => {
 
-  return await axios.delete('http://localhost:8090/' + _id , 
-  { data: { password: password } })
-    .then(res => {
-      dispatch({
-        type: DELETE_MESSAGE,
-        payload: res.data
-      }, 
-      window.location.replace('/'))
-    })
-    .catch(e => {
-      dispatch({
-        type: FAILURE,
-        payload: e.response
-      })
-    })
-
+  try {
+    const res = await axios.delete(`http://localhost:8090/${_id}`, { data: { _id: _id, password: password } })
+    dispatch({ type: DELETE_MESSAGE, payload: res.data })
+    window.location.replace('/')
+  } catch (e) {
+    dispatch(isError(e))
+  }
 }
