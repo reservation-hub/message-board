@@ -1,4 +1,3 @@
-import React, { useState, useCallback } from 'react'
 import moment from 'moment'
 import useInput from '../utils/useInput'
 
@@ -7,6 +6,7 @@ const Messages = ({ posts, onDelete, error }) => {
   const [value, setvalue] = useInput({
     password: ''
   })
+  const checkActive = value.password.length < 6 ? true : false
   const hasError = error.data && error.data.id === posts._id
 
   return(
@@ -25,13 +25,7 @@ const Messages = ({ posts, onDelete, error }) => {
         <span className="date">
           { moment(posts.createdAt).format('Y/M/D') }Posted
         </span>
-      </div>
-      <div className="message-body">
-        <span className="message-dt">
-          {posts.message}
-        </span>
-      </div>
-      <div className="delete-area">
+        <div className="delete-area">
         <form>
           <input 
             type="password" 
@@ -42,7 +36,17 @@ const Messages = ({ posts, onDelete, error }) => {
             value={ value.password } 
           />
         </form>
-        <button onClick={ () => onDelete(posts._id, value.password) }>delete</button>
+        <button 
+          onClick={ () => onDelete(posts._id, value.password) } 
+          disabled={ checkActive } >
+            delete
+          </button>
+      </div>
+      </div>
+      <div className="message-body">
+        <span className="message-dt">
+          {posts.message}
+        </span>
       </div>
       { hasError &&
         <span className="err-msg"> {error.data.message} </span> 

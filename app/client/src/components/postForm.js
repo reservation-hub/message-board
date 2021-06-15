@@ -1,8 +1,7 @@
-import React, { useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { addMessage } from '../redux/action/boardAction'
 import { withRouter } from 'react-router-dom'
-import '../css/postFrom.css'
 import useInput from '../utils/useInput'
 
 const PostForm = ({ error }) => {
@@ -22,9 +21,11 @@ const PostForm = ({ error }) => {
       e.preventDefault()
     },
     [dispatch, inputs],
-    ) 
+    )
+    
+    // const checkActive = inputs.password.length < 6 || inputs.length < 3 && true
 
-    // console.log(error.data)
+    console.log(error.data.error)
 
   return(
     <>
@@ -71,7 +72,7 @@ const PostForm = ({ error }) => {
           />
         </div>
         <div className="error-area">
-          { error.data ? <span> { error.data.error } </span> : null }
+          {/* { error.data ? <span> { error.data.error } </span> : null } */}
         </div>
         <button className="submit-button">submit</button>
       </form>

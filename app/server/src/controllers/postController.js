@@ -39,7 +39,7 @@ exports.postDelete = asyncHandler(async (req, res,next) => {
 
     bcrypt.compare(password,hashedPass,function(err,result){
         if(result == false){
-            res.status(401).send({message:"Password didn't match"})
+            res.status(401).send({message:"Password didn't match", id: _id})
         }else{
 
         post.deleteOne()

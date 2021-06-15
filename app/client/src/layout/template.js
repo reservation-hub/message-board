@@ -5,6 +5,7 @@ import { openModal, hideModal } from '../redux/action/modalAction'
 import Modal from '../components/modal/modal'
 import Header from '../components/header'
 import MessageList from '../components/messageList'
+import Loading from '../components/Loading'
 
 const Template = () => {
 
@@ -17,8 +18,6 @@ const Template = () => {
       loading: state.post.loading,
       error: state.error
     }), shallowEqual)
-
-    console.log(posts)
 
   const modalOpen = () => {
     dispatch(openModal())
@@ -45,12 +44,13 @@ const Template = () => {
     <>
       <Header modalOpen={ modalOpen } />
       { modal && <Modal modalHide={  modalHide } error={ error } /> }
-      { loading ? <p>loading</p> : 
-        <MessageList 
-          posts={ posts } 
-          onDelete={ onDelete } 
-          error={ error } 
-        /> 
+      { loading ? 
+          <Loading /> : 
+          <MessageList 
+            posts={ posts } 
+            onDelete={ onDelete } 
+            error={ error } 
+          /> 
       }
     </>
   )
