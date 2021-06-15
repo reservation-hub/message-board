@@ -3,40 +3,28 @@ import { useDispatch } from 'react-redux'
 import { addMessage } from '../redux/action/boardAction'
 import { withRouter } from 'react-router-dom'
 import '../css/postFrom.css'
+import useInput from '../utils/useInput'
 
 const PostForm = ({ error }) => {
   
   const dispatch = useDispatch()
 
-  const [setErorr] = useState('please check input values')
-  const [ inputs, setInputs ] = useState({
+  const [ inputs, setInputs ] = useInput({
     title: '',
     name: '',
     password: '',
     message: ''
   })
-    
-  const onChange = useCallback(
-    (e) => {
-      const { name, value } = e.target
-      setInputs({ ...inputs, [name]: value })
-    },
-    [inputs],
-  )
 
   const onSubmit = useCallback(
     (e) => {
       dispatch(addMessage(inputs))
-      setInputs({
-        title: '',
-        name: '',
-        password: '',
-        message: ''
-      })
-      e.preventDefault()  
+      e.preventDefault()
     },
     [dispatch, inputs],
     ) 
+
+    // console.log(error.data)
 
   return(
     <>
@@ -50,7 +38,7 @@ const PostForm = ({ error }) => {
             name="title" 
             autoComplete="off" 
             value={ inputs.title } 
-            onChange={ onChange }
+            onChange={ setInputs }
             placeholder="Message title" 
           />
         </div>
@@ -60,7 +48,7 @@ const PostForm = ({ error }) => {
             name="name" 
             autoComplete="off"
             value={ inputs.name } 
-            onChange={ onChange } 
+            onChange={ setInputs } 
             placeholder="Input your name" 
           />
         </div>
@@ -70,7 +58,7 @@ const PostForm = ({ error }) => {
             name="password" 
             autoComplete="off"
             value={ inputs.password } 
-            onChange={ onChange } 
+            onChange={ setInputs } 
             placeholder="Message password" 
           />
         </div>
@@ -78,12 +66,12 @@ const PostForm = ({ error }) => {
           <textarea 
             name="message" 
             value={ inputs.message } 
-            onChange={ onChange } 
+            onChange={ setInputs } 
             placeholder="Message" 
           />
         </div>
         <div className="error-area">
-          { error.data ? <span> { setErorr } </span> : null }
+          { error.data ? <span> { error.data.error } </span> : null }
         </div>
         <button className="submit-button">submit</button>
       </form>

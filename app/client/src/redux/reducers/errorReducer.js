@@ -10,5 +10,4 @@ export const defaultReducer = (state = initState, action) => {
     default:
       return state
   }
-
 }

@@ -1,12 +1,10 @@
 import { HIDE_MODAL, OPEN_MODAL } from '../action/types'
 
 const initState = { 
-  modal: false,
-  posting: false 
+  modal: false 
 }
 
 export const modalReducer = (state = initState, action) => {
-  
   switch(action.type)
   {
     case OPEN_MODAL:
@@ -16,5 +14,4 @@ export const modalReducer = (state = initState, action) => {
     default:
       return state
   }
-
 }

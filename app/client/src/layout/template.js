@@ -18,6 +18,8 @@ const Template = () => {
       error: state.error
     }), shallowEqual)
 
+    console.log(posts)
+
   const modalOpen = () => {
     dispatch(openModal())
     document.body.style.overflow = "hidden";
@@ -32,7 +34,7 @@ const Template = () => {
     (_id, password) => {
       dispatch(deleteMessage(_id, password))
     },
-    [dispatch],   
+    [dispatch]
   )
 
   useEffect(() => {
