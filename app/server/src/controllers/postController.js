@@ -1,7 +1,6 @@
 const Post = require('../models/post')
 const asyncHandler = require("../lib/asyncHandler")
 const { filterUndefined } = require('../../lib/filter')
-const ErrorResponse = require("../utils/errorResponse")
 const bcrypt = require('bcrypt')
 
 exports.postIndex = async (req, res, next) => {
