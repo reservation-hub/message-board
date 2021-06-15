@@ -1,36 +1,54 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteMessage } from '../action/boardAction';
+import React, { useState, useCallback } from 'react'
+import moment from 'moment'
+import useInput from '../utils/useInput'
 
-const Messages = (props) => {
+const Messages = ({ posts, onDelete, error }) => {
 
-  const dispatch = useDispatch()
-  
-  const onDelete = async (_id) => {
-    dispatch(deleteMessage(props.props._id))
-    window.location.href = '/'
-  }
+  const [value, setvalue] = useInput({
+    password: ''
+  })
+  const hasError = error.data && error.data.id === posts._id
 
   return(
     <div className="message-box">
       <div className="message-info">
         <span className="message-title">
-          title: {props.props.title}
+          {posts.title}
         </span>
+        <div className="line"></div>
         <span className="message-name">
-          name:  {props.props.name}
+          name
+          <div className="indata">
+           {posts.name}
+          </div>
+        </span>
+        <span className="date">
+          { moment(posts.createdAt).format('Y/M/D') }Posted
         </span>
       </div>
       <div className="message-body">
         <span className="message-dt">
-          message: {props.props.message}
+          {posts.message}
         </span>
       </div>
-      <div>
-        <button onClick={() => onDelete(props.props._id)} >delete</button>
+      <div className="delete-area">
+        <form>
+          <input 
+            type="password" 
+            name="password"
+            placeholder="input delete password"
+            autoComplete="off"
+            onChange={ setvalue } 
+            value={ value.password } 
+          />
+        </form>
+        <button onClick={ () => onDelete(posts._id, value.password) }>delete</button>
       </div>
+      { hasError &&
+        <span className="err-msg"> {error.data.message} </span> 
+      }
     </div>
-  );
+  )
 }
 
 export default Messages;

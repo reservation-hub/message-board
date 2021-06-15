@@ -1,66 +1,82 @@
-import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { addMessage } from '../action/boardAction';
+import React, { useState, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import { addMessage } from '../redux/action/boardAction'
+import { withRouter } from 'react-router-dom'
+import '../css/postFrom.css'
+import useInput from '../utils/useInput'
 
-const PostForm = () => {
-    
-    const [ inputs, setInputs ] = useState({
-        title: '',
-        name: '',
-        message: '',
-        password: ''
-    })
-    const { title, name, message, password } = inputs
-    const dispatch = useDispatch();
+const PostForm = ({ error }) => {
+  
+  const dispatch = useDispatch()
 
-    const onChange = useCallback(
-        (e) => {
-            const { name, value } = e.target
-            setInputs({ ...inputs, [name]: value })
-        },
-        [inputs],
-    )
+  const [ inputs, setInputs ] = useInput({
+    title: '',
+    name: '',
+    password: '',
+    message: ''
+  })
 
-    const onSubmit = useCallback(
-        (e) => {
-            e.preventDefault()
-            dispatch(addMessage(inputs))
-            window.location.href = ('/')
-        },
-        [dispatch, inputs],
+  const onSubmit = useCallback(
+    (e) => {
+      dispatch(addMessage(inputs))
+      e.preventDefault()
+    },
+    [dispatch, inputs],
     ) 
 
-    return(
-        <form className="postform" onSubmit={ onSubmit }>
-            <div className="form-title">
-                <label htmlFor="title">
-                    title
-                </label>
-                <input type="text" name="title" value={ title } onChange={ onChange } />
-            </div>
-            <div className="form-username">
-                <label htmlFor="name">
-                    name
-                </label>
-                <input type="text" name="name" value={ name } onChange={ onChange } />
-            </div>
-            <div className="form-password">
-                <label htmlFor="name">
-                    password
-                </label>
-                <input type="password" name="password" value={ password } onChange={ onChange } />
-            </div>
-            <div className="form-message">
-                <label htmlFor="message">
-                    message
-                </label>
-                <textarea in="message" name="message" value={ message } onChange={ onChange } />
-            </div>
-            <div className="form-button">
-                <button type="submit">submit</button>
-            </div>
-        </form>
-    );
+    // console.log(error.data)
+
+  return(
+    <>
+      <h2 className="title">
+        Add Message
+      </h2>
+      <form className="postform" onSubmit={ onSubmit }>
+        <div className="form form-title">
+          <input 
+            type="text" 
+            name="title" 
+            autoComplete="off" 
+            value={ inputs.title } 
+            onChange={ setInputs }
+            placeholder="Message title" 
+          />
+        </div>
+        <div className="form form-username">
+          <input 
+            type="text" 
+            name="name" 
+            autoComplete="off"
+            value={ inputs.name } 
+            onChange={ setInputs } 
+            placeholder="Input your name" 
+          />
+        </div>
+        <div className="form form-password">
+          <input 
+            type="password" 
+            name="password" 
+            autoComplete="off"
+            value={ inputs.password } 
+            onChange={ setInputs } 
+            placeholder="Message password" 
+          />
+        </div>
+        <div className="form form-message">
+          <textarea 
+            name="message" 
+            value={ inputs.message } 
+            onChange={ setInputs } 
+            placeholder="Message" 
+          />
+        </div>
+        <div className="error-area">
+          { error.data ? <span> { error.data.error } </span> : null }
+        </div>
+        <button className="submit-button">submit</button>
+      </form>
+    </>
+  );
 }
 
-export default PostForm;
+export default withRouter(PostForm);

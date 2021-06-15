@@ -1,28 +1,17 @@
-import Template from './layout/template';
-import {  BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import React from 'react';
-import reduxThunk from 'redux-thunk'
-import './css/App.css';
-import reduce from './reduce/rootReducer'
-
+import { Router, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import Template from './layout/template'
+import history from './utils/history'
+import './css/App.css'
+import store from './redux/store'
 
 function App() {
-
-  const conposeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose 
-  const store = createStore(
-    reduce, conposeEnhancer(applyMiddleware(reduxThunk))
-    )
-
   return (
-    <div>
-      <Provider store={ store }>
-        <BrowserRouter>
-          <Route path="/" component={ Template } />
-        </BrowserRouter>
-      </Provider>
-    </div>
+    <Provider store={ store }>
+      <Router history={ history }>
+        <Route exact path='/' component={ Template } />
+      </Router>
+    </Provider>
   );
 }
 
