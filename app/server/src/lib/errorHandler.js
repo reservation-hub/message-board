@@ -15,8 +15,7 @@ const errorHandler = (err,req,res,next)=>{
 
     if(error.errors){
         message = error.errors
-        e = error.errors
-        error = new ErrorResponse(message,400,e)
+        error = new ErrorResponse(message,400)
     }
 
     /*
@@ -27,7 +26,6 @@ const errorHandler = (err,req,res,next)=>{
    res.status(error.statusCode || 500).json({
        success: false,
        error:error.message || "Server Error",
-       e: error.e
    }) 
 }
 
