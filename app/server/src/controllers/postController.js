@@ -11,15 +11,17 @@ exports.postIndex = asyncHandler (async (req, res,next) => {
     const count =  await Post.countDocuments();
     result.results = await Post.find().limit(limit).skip(skipIndex).exec()
     res.status(200).send({result:result,total:Math.floor(count/limit)})
+
 })
 
 
 exports.postInsert = asyncHandler((req, res,next) => {
-  const { title, name, message, password } = req.body
-  console.log(req.body)
-  const post = new Post({title, name, message, password})
-  post.save()
-  .then(result => res.status(201).send(result))
+
+    const { title, name, message, password } = req.body
+    const post = new Post({title, name, message, password})
+    post.save()
+    return res.status(201).send(post)
+
 })
 
 exports.postUpdate = asyncHandler(async (req, res,next) => {
@@ -38,12 +40,17 @@ exports.postDelete = asyncHandler(async (req, res,next) => {
     const hashedPass = post.password
 
     bcrypt.compare(password,hashedPass,function(err,result){
-      if(result == false){
-        res.status(401).send({message:"Password didn't match", id: _id})
-      }else{
-        data.deleteOne()
-        .then(res.status(202).send({message:"Deleted successfully"}))
-      }
+
+        if(result == false){
+            res.status(401).send({message:"Password didn't match"})
+        }else{
+
+        post.deleteOne()
+        
+        return res.status(202).send({message:"Deleted successfully"})
+    
+        }
+
     })
     
     
