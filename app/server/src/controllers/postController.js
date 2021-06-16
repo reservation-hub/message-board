@@ -8,8 +8,10 @@ exports.postIndex = asyncHandler (async (req, res,next) => {
     const limit = 10
     const skipIndex = (page - 1) * limit
     const  result = {}
+    const count =  await Post.countDocuments();
     result.results = await Post.find().limit(limit).skip(skipIndex).exec()
-    res.status(200).send(result)
+    res.status(200).send({result:result,total:Math.floor(count/limit)})
+
 })
 
 
