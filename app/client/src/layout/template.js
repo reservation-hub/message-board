@@ -11,12 +11,14 @@ const Template = () => {
 
   const dispatch = useDispatch()
   const [page, setPage] = useState(1)
-  const { modal, loading, error } = useSelector(
+  const { total, modal, loading, error } = useSelector(
     state => ({
+      total: state.post,
       modal: state.modal.modal,
       loading: state.post.loading,
       error: state.error
     }), shallowEqual)
+    console.log(total)
   
   const modalOpen = () => {
     dispatch(openModal())

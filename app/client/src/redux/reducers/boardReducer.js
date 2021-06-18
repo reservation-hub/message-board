@@ -2,7 +2,8 @@ import { FETCH_DATA, ADD_MESSAGE, DELETE_MESSAGE, LOADING } from '../action/type
 
 export const postState = {
   posts: [],
-  loading: false
+  loading: false,
+  total: 1
 }
 
 export const boardReducer = (state = postState, action) => 
@@ -12,7 +13,7 @@ export const boardReducer = (state = postState, action) =>
     case LOADING:
       return { ...state, loading: true }
     case FETCH_DATA:
-      return { ...state, posts: action.payload, loading: false }
+      return { ...state, posts: action.payload, loading: false, total: action.total }
     case ADD_MESSAGE:
       return { ...state, posts: [ action.payload, ...state.posts ] }
     case DELETE_MESSAGE:
