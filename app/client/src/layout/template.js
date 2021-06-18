@@ -1,6 +1,6 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useSelector, useDispatch, shallowEqual  } from 'react-redux'
-import { fetchList, deleteMessage } from '../redux/action/boardAction'
+import { fetchList } from '../redux/action/boardAction'
 import { openModal, hideModal } from '../redux/action/modalAction'
 import Modal from '../components/modal/modal'
 import Header from '../components/header'
@@ -10,49 +10,40 @@ import Loading from '../components/Loading'
 const Template = () => {
 
   const dispatch = useDispatch()
-
-  const { posts, modal, loading, error } = useSelector(
+  const [page, setPage] = useState(1)
+  const { modal, loading, error } = useSelector(
     state => ({
-      posts: state.post.posts,
       modal: state.modal.modal,
       loading: state.post.loading,
       error: state.error
     }), shallowEqual)
-
+  
   const modalOpen = () => {
     dispatch(openModal())
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden'
   }
   
   const modalHide = () => {
     dispatch(hideModal())
-    document.body.style.overflow = "unset";
+    document.body.style.overflow = 'unset'
   }
 
-  const onDelete = useCallback(
-    (_id, password) => {
-      dispatch(deleteMessage(_id, password))
-    },
-    [dispatch]
-  )
-
   useEffect(() => {
-    dispatch(fetchList())
-  }, [dispatch])
+    dispatch(fetchList(page))
+  }, [dispatch, page])
+
 
   return(
-    <>
+    <Fragment>
       <Header modalOpen={ modalOpen } />
-      { modal && <Modal modalHide={  modalHide } error={ error } /> }
+      { modal && 
+        <Modal modalHide={ modalHide } error={ error } /> 
+      }
       { loading ? 
           <Loading /> : 
-          <MessageList 
-            posts={ posts } 
-            onDelete={ onDelete } 
-            error={ error } 
-          /> 
+          <MessageList error={ error } /> 
       }
-    </>
+    </Fragment>
   )
 
 }

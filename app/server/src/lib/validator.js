@@ -15,9 +15,9 @@ exports.validator = [
     .trim()
     .not()
     .isEmpty()
-    .isLength({min:3})
     .withMessage("Name is required")
     .bail()
+    .isLength({min:3})
     .withMessage("Name has to have 3 or more than 3 characters"),
 
     
@@ -25,9 +25,9 @@ exports.validator = [
     .trim()
     .not()
     .isEmpty()
-    .isLength({min:3})
     .withMessage("Message is required")
     .bail()
+    .isLength({min:3})
     .withMessage("Message has to have 3 or more than 3 characters"),
 
     

@@ -1,8 +1,22 @@
-$tittle: #FDFFFC;
-$sub-title: #F2BDCD;
+// start reset
+html, body, div, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, ol, ul, li, form, fieldset, legend, label, table, header, footer, nav, section  
+	margin: 0; 
+	padding: 0;
+	border: 0;
+
+ol, ul 
+	list-style: none; 
+
+header, footer, nav, section, article, hgroup, figure 
+	display: block;	
+
+legend 
+	display: none;
+
+// end reset
+  
   
 html, body, #root
-  height: 100%
   background: #f0ebeb
   margin: 0
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
@@ -13,13 +27,17 @@ code
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace
 
 h1
-  color: $tittle
+  color: $subColor
 
 h2
-  margin-left: 2.3rem
-  color: $sub-title
+  color: $mainColor
   font-weight: 800
   font-size: 1.7rem
 
 .title
   margin-top: 0
+
+.has-error
+  margin-right: 4.3rem
+  text-align: end
+  color: red
