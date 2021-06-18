@@ -1,8 +1,6 @@
-import React, { useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { addMessage } from '../redux/action/boardAction'
-import { withRouter } from 'react-router-dom'
-import '../css/postFrom.css'
 import useInput from '../utils/useInput'
 
 const PostForm = ({ error }) => {
@@ -22,61 +20,68 @@ const PostForm = ({ error }) => {
       e.preventDefault()
     },
     [dispatch, inputs],
-    ) 
+    )
+    
+    // const checkActive = inputs.password.length < 6 || inputs.length < 3 && true
+    
+    const hasError = error.error && 
+      error.error.map(error => (
+        <span key={error.param} className="has-error">
+          {error.msg}
+          </span> ))
 
-    // console.log(error.data)
-
-  return(
-    <>
-      <h2 className="title">
-        Add Message
-      </h2>
-      <form className="postform" onSubmit={ onSubmit }>
-        <div className="form form-title">
-          <input 
-            type="text" 
-            name="title" 
-            autoComplete="off" 
-            value={ inputs.title } 
-            onChange={ setInputs }
-            placeholder="Message title" 
-          />
-        </div>
-        <div className="form form-username">
-          <input 
-            type="text" 
-            name="name" 
-            autoComplete="off"
-            value={ inputs.name } 
-            onChange={ setInputs } 
-            placeholder="Input your name" 
-          />
-        </div>
-        <div className="form form-password">
-          <input 
-            type="password" 
-            name="password" 
-            autoComplete="off"
-            value={ inputs.password } 
-            onChange={ setInputs } 
-            placeholder="Message password" 
-          />
-        </div>
-        <div className="form form-message">
-          <textarea 
-            name="message" 
-            value={ inputs.message } 
-            onChange={ setInputs } 
-            placeholder="Message" 
-          />
-        </div>
-        <div className="error-area">
-          { error.data ? <span> { error.data.error } </span> : null }
-        </div>
-        <button className="submit-button">submit</button>
-      </form>
-    </>
-  );
+    return(
+      <>
+        <h2 className="title">
+          Add Message
+        </h2>
+        <form className="postform" onSubmit={ onSubmit }>
+          <div className="form form-title">
+            <input 
+              type="text" 
+              name="title" 
+              autoComplete="off" 
+              value={ inputs.title } 
+              onChange={ setInputs }
+              placeholder="Message title" 
+            />
+            { error.error && hasError[0] }
+          </div>
+          <div className="form form-username">
+            <input 
+              type="text" 
+              name="name" 
+              autoComplete="off"
+              value={ inputs.name } 
+              onChange={ setInputs } 
+              placeholder="Input your name" 
+            />
+            { error.error && hasError[1] }
+          </div>
+          <div className="form form-password">
+            <input 
+              type="password" 
+              name="password" 
+              autoComplete="off"
+              value={ inputs.password } 
+              onChange={ setInputs } 
+              placeholder="Message password" 
+            />
+            { error.error && hasError[2] }
+          </div>
+          <div className="form form-message">
+            <textarea 
+              name="message" 
+              value={ inputs.message } 
+              onChange={ setInputs } 
+              placeholder="Message" 
+            />
+            { error.error && hasError[3] }
+          </div>
+          <button className="submit-button">submit</button>
+        </form>
+      </>
+    )
 }
 
-export default withRouter(PostForm);
+export default PostForm
