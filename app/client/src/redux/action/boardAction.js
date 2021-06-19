@@ -11,7 +11,7 @@ const isLoading = () => {
   return { type: LOADING }
 }
 const isError = (err) => {
-  return { type:FAILURE, payload: err.response }
+  return { type:FAILURE, payload: err.response.data }
 }
 
 export const fetchList = (page) => async (dispatch) => {

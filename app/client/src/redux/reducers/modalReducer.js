@@ -1,7 +1,7 @@
 import { HIDE_MODAL, OPEN_MODAL } from '../action/types'
 
 const initState = { 
-  modal: false 
+  modal: false
 }
 
 export const modalReducer = (state = initState, action) => {
