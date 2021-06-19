@@ -22,7 +22,7 @@ const PostForm = ({ error }) => {
     [dispatch, inputs],
     )
     
-    // const checkActive = inputs.password.length < 6 || inputs.length < 3 && true
+    const checkActive = inputs.password.length < 6 || inputs.length < 3 && true
     
     const hasError = error.error && 
       error.error.map(error => (
@@ -31,7 +31,7 @@ const PostForm = ({ error }) => {
           </span> ))
 
     return(
-      <>
+      <React.Fragment>
         <h2 className="title">
           Add Message
         </h2>
@@ -78,9 +78,9 @@ const PostForm = ({ error }) => {
             />
             { error.error && hasError[3] }
           </div>
-          <button className="submit-button">submit</button>
+          <button className="submit-button" disabled={ checkActive }>submit</button>
         </form>
-      </>
+      </React.Fragment>
     )
 }
 

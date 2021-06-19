@@ -11,7 +11,7 @@
     font-size: 1.5rem
 
   .header-area
-    padding: 1rem .5rem .25rem
+    padding: $defaultSize .5rem .25rem
     height: 3rem
     margin-bottom: 1.5rem
     display: flex
@@ -31,13 +31,13 @@
 // @desc message component
 @media all and (max-width: 767px)
   .container
-    width: 100%
+    width: 95%
 
     .message-container
       padding: .5rem
 
       .message-info
-        margin: 0 0 1rem
+        margin: 0 0 $defaultSize
         display: inline-block
 
         .line
@@ -66,7 +66,7 @@
 
 @media all and (min-width: 768px) and (max-width: 1023px)
   .container
-    width: 100%
+    width: 95%
 
   .message-delete
     left: 32rem
@@ -77,7 +77,7 @@
     width: 80%
 
     .modal-close
-      right: 1rem;
+      right: $defaultSize;
       top: 1.7rem;
 
 @media all and (min-width: 768px) and (max-width: 1023px)

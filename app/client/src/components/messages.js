@@ -41,12 +41,12 @@ const Messages = ({ posts, onDelete, error }) => {
               posts.message.substring(0, 50) }
           { posts.message.length > 50 && (
             <React.Fragment>
-              <span className={more ? "less" : "more"}>
+              <span className={ more ? "less" : "more" }>
                 ...
               </span>
               <span 
                 onClick={() => showMore()}
-                className={more ? "hide" : "show"}
+                className={ more ? "hide" : "show" }
               >
                 { more? "less" : "more" }
               </span>
@@ -73,7 +73,7 @@ const Messages = ({ posts, onDelete, error }) => {
         </button>
       </div>
       { hasError &&
-        <p className="has-error"> {error.message} </p> 
+        <p className="has-error"> { error.message } </p> 
       }
     </div>
   )

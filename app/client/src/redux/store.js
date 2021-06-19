@@ -6,7 +6,7 @@ import rootReducer from './reducers/rootReducer'
 
 const middleware = [thunk, logger]
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose(applyMiddleware([]))
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   rootReducer, composeEnhancer(applyMiddleware(...middleware))
 )

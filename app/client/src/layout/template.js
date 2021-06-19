@@ -1,11 +1,20 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { useSelector, useDispatch, shallowEqual  } from 'react-redux'
+import React, 
+{ Fragment, 
+  useEffect, 
+  useState 
+} from 'react'
+import { 
+  useSelector, 
+  useDispatch, 
+  shallowEqual  
+} from 'react-redux'
 import { fetchList } from '../redux/action/boardAction'
 import { openModal, hideModal } from '../redux/action/modalAction'
 import Modal from '../components/modal/modal'
 import Header from '../components/header'
 import MessageList from '../components/messageList'
 import Loading from '../components/Loading'
+import Pagination from '../components/pagination'
 
 const Template = () => {
 
@@ -18,8 +27,8 @@ const Template = () => {
       loading: state.post.loading,
       error: state.error
     }), shallowEqual)
-    console.log(total)
-  
+    console.log(page)
+
   const modalOpen = () => {
     dispatch(openModal())
     document.body.style.overflow = 'hidden'
@@ -34,7 +43,6 @@ const Template = () => {
     dispatch(fetchList(page))
   }, [dispatch, page])
 
-
   return(
     <Fragment>
       <Header modalOpen={ modalOpen } />
@@ -45,6 +53,7 @@ const Template = () => {
           <Loading /> : 
           <MessageList error={ error } /> 
       }
+      <Pagination totalPage={ total.total } paginate={ setPage } page={ page } />
     </Fragment>
   )
 
