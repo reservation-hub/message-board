@@ -4,14 +4,18 @@ import {
   LOADING, 
   FETCH_DATA,
   ADD_MESSAGE,
-  DELETE_MESSAGE
+  DELETE_MESSAGE,
+  CELAN_ERROR
 } from './types'
 
 const isLoading = () => {
   return { type: LOADING }
 }
 const isError = (err) => {
-  return { type:FAILURE, payload: err.response.data }
+  return { type: FAILURE, payload: err.response.data }
+}
+export const cleanError = () => {
+  return { type: CELAN_ERROR }
 }
 
 export const fetchList = (page) => async (dispatch) => {

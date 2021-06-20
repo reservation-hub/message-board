@@ -1,17 +1,18 @@
+import React from 'react'
 import { Router, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import Template from './layout/template'
+import Home from './components/layout/Home'
+import Header from './components/layout/header'
 import history from './utils/history'
 import './sass/index.sass'
-import store from './redux/store'
 
 function App() {
   return (
-    <Provider store={ store }>
+    <React.Fragment>
       <Router history={ history }>
-        <Route exact path='/' component={ Template } />
+        <Header />
+        <Route exact path='/' component={ Home } />
       </Router>
-    </Provider>
+    </React.Fragment>
   );
 }
 

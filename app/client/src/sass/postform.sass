@@ -28,7 +28,7 @@
     height: 4.5rem
     box-sizing: border-box
 
-.submit-button
+.submit-active
   // margin-top: 1rem
   width: 100%
   height: 2.5rem
@@ -44,3 +44,15 @@
   &:hover
     transition: all .5s
     background: #011627
+
+.submit-disable
+  width: 100%
+  height: 2.5rem
+  font-size: 1.5rem
+  border: 3px solid $mainColor
+  border-radius: .25rem
+  color: $mainColor
+  background: $subColor
+  cursor: pointer
+  position: relative
+  bottom: -$defaultSize

@@ -1,14 +1,15 @@
 import React, { useState, useCallback } from 'react'
 import moment from 'moment'
-import useInput from '../utils/useInput'
+import useInput from '../../utils/useInput'
+import HasError from '../common/error'
 
 const Messages = ({ posts, onDelete, error }) => {
 
   const [more, setMore] = useState(false)
+  
   const [value, setvalue] = useInput({ password: '' })
 
   const checkActive = value.password.length < 6 && true
-  const hasError = error && error.id === posts._id
   
   const showMore = useCallback(
     () => {
@@ -18,7 +19,7 @@ const Messages = ({ posts, onDelete, error }) => {
   )
 
   return(
-    <div className="message-container">
+    <article className="message-container">
       <div className="message-info">
         <span className="message-title">
           {posts.title}
@@ -48,7 +49,7 @@ const Messages = ({ posts, onDelete, error }) => {
                 onClick={() => showMore()}
                 className={ more ? "hide" : "show" }
               >
-                { more? "less" : "more" }
+                { more ? "less" : "more" }
               </span>
             </React.Fragment>
           )}
@@ -72,10 +73,12 @@ const Messages = ({ posts, onDelete, error }) => {
             delete
         </button>
       </div>
-      { hasError &&
-        <p className="has-error"> { error.message } </p> 
+      { error && error.id === posts._id && 
+        <p className="message-error">
+          <HasError error={ error.message } />
+        </p>
       }
-    </div>
+    </article>
   )
 }
 
