@@ -1,0 +1,30 @@
+.loading
+  .dim
+    position: fixed
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    background: rgba(0, 0, 0, 0.7)
+
+  .circle
+    position: fixed
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
+    width: 4rem
+    height: 4rem
+    border: 10px solid #fafafa
+    border-top: 10px solid $mainColor
+    border-radius: 50%
+    animation-name: spinCircle
+    animation-duration: .8s
+    animation-iteration-count: infinite
+
+/* animation
+@keyframes spinCircle
+  from
+    transform: translate(-50%, -50%) rotate(0)
+
+  to
+    transform: translate(-50%, -50%) rotate(360deg)

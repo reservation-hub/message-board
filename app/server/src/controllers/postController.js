@@ -10,6 +10,7 @@ exports.postIndex = asyncHandler (async (req, res,next) => {
     const  result = {}
     const count =  await Post.countDocuments();
     result.results = await Post.find().sort([['createdAt',-1]]).limit(limit).skip(skipIndex).exec()
+
     res.status(200).send({result:result,total:Math.ceil(count/limit)})
 
 })
@@ -39,7 +40,7 @@ exports.postDelete = asyncHandler(async (req, res,next) => {
 
     bcrypt.compare(password,hashedPass,function(err,result){
         if(result == false){
-            res.status(401).send({message:"Password didn't match"})
+            res.status(401).send({message:"Password didn't match", id: _id})
         }else{
 
         post.deleteOne()

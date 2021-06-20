@@ -11,15 +11,15 @@ const isLoading = () => {
   return { type: LOADING }
 }
 const isError = (err) => {
-  return { type:FAILURE, payload: err.response }
+  return { type:FAILURE, payload: err.response.data }
 }
 
-export const fetchList = () => async (dispatch) => {
+export const fetchList = (page) => async (dispatch) => {
 
   dispatch(isLoading())
   try {
-    const res = await axios.get('http://localhost:8090/')
-    dispatch({ type: FETCH_DATA, payload: res.data }) 
+    const res = await axios.get(`http://localhost:8090/?page=${page}`)
+    dispatch({ type: FETCH_DATA, payload: res.data.result.results, total: res.data.total }) 
   } catch (e) {
     dispatch(isError(e))
   }  

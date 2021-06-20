@@ -1,9 +1,7 @@
-import '../css/header.css'
-
 const Header = ({ modalOpen }) => {
 
   return(
-    <div className="header-area">
+    <header className="header-area">
       <h1 className="title">
         Message board
       </h1>
@@ -12,7 +10,7 @@ const Header = ({ modalOpen }) => {
           onClick={ () => modalOpen() }>
             Add Message
         </button>
-    </div>
+    </header>
   )
 
 }
