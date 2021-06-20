@@ -10,7 +10,6 @@ exports.postIndex = asyncHandler (async (req, res,next) => {
     const  result = {}
     const count =  await Post.countDocuments();
     result.results = await Post.find().sort([['createdAt',-1]]).limit(limit).skip(skipIndex).exec()
-
     res.status(200).send({result:result,total:Math.ceil(count/limit)})
 
 })
