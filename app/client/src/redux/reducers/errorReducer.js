@@ -1,4 +1,4 @@
-import { FAILURE } from '../action/types'
+import { CELAN_ERROR, FAILURE } from '../action/types'
 
 const initState = {}
 
@@ -7,6 +7,8 @@ export const errorReducer = (state = initState, action) => {
   {
     case FAILURE:
       return action.payload || state
+    case CELAN_ERROR:
+      return {}
     default:
       return state
   }

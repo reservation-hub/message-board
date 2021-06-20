@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 const Pagination = ({ page, totalPage, paginate }) => {
   const array = []
@@ -6,9 +6,21 @@ const Pagination = ({ page, totalPage, paginate }) => {
     array.push(i)
   }
 
-  const prvPageHandelr = () => page === 1 ? null : paginate(page - 1)
+  const prvPageHandelr = useCallback(
+    () => {
+      if(page === 1) return null
+      paginate(page - 1)
+    },
+    [page, paginate],
+  )
   
-  const nextPageHandler = () => page === totalPage ? null : paginate(page + 1)
+  const nextPageHandler = useCallback(
+    () => {
+      if(page === totalPage) return null
+      paginate(page + 1)
+    },
+    [page, totalPage, paginate],
+  )
   
   return (
     <ul className="paginate">
@@ -33,4 +45,4 @@ const Pagination = ({ page, totalPage, paginate }) => {
   )
 }
 
-export default Pagination
+export default React.memo(Pagination)
