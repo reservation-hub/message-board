@@ -2,8 +2,7 @@ button
   display: block
 
 .container
-  width: 75%
-  // height: 115vh
+  width: 66rem
   margin: 0 auto
 
 .message-container
@@ -37,6 +36,7 @@ button
   background: #999
 
 .message-body
+  white-space: break-spaces
   word-break: break-all
   margin-bottom: 1rem
 
@@ -94,3 +94,20 @@ button
     &:hover
       background: #ed9fb7
       transition: all 1s
+
+.message-error
+  text-align: end
+
+.is-empty
+  padding: 3rem
+  background: $subColor
+  text-align: center
+  font-weight: 500
+  border-radius: .25rem
+
+  h2
+    font-size: 3rem
+    margin-bottom: $defaultSize
+  span
+    color: #ccc1c0
+    font-size: 1.5rem

@@ -9,7 +9,7 @@ const Modal = ({ modalHide, error, inputs, dataSet }) => {
         className="modal" 
         onClick={e => e.stopPropagation()}
       >
-        <Postform error={ error } inputs={ inputs } dataSet={ dataSet } />
+        <Postform error={ error } />
         <button 
           className="modal-close" 
           onClick={() => modalHide()}

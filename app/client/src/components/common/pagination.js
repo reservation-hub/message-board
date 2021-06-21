@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 
 const Pagination = ({ page, totalPage, paginate }) => {
+  
   const array = []
-  for (let i = 1; i <= totalPage; i++) {
-    array.push(i)
-  }
+
+  for (let i = 1; i <= totalPage; i++) array.push(i) 
 
   const prvPageHandelr = useCallback(
     () => {
@@ -16,7 +16,7 @@ const Pagination = ({ page, totalPage, paginate }) => {
   
   const nextPageHandler = useCallback(
     () => {
-      if(page === totalPage) return null
+      if(page === totalPage || totalPage === 0) return null
       paginate(page + 1)
     },
     [page, totalPage, paginate],

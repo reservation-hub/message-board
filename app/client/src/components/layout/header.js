@@ -19,7 +19,7 @@ const Header = () => {
       </h1>
         <button 
           className="modal-button" 
-          onClick={ () => modalOpen() }>
+          onClick={ modalOpen }>
             Add Message
         </button>
     </header>
