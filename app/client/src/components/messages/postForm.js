@@ -15,13 +15,13 @@ const PostForm = ({ error }) => {
     message: ''
   })
 
-  const onSubmit = useCallback(
-    (e) => {
-      dispatch(addMessage(inputs))
-      e.preventDefault()
-    },
-    [dispatch, inputs],
-    )
+  console.log(inputs)
+
+  const onSubmit = useCallback(e => {
+    dispatch(addMessage(inputs))
+    e.preventDefault()
+  },
+  [dispatch, inputs])
     
   const checkActive = 
     inputs.password.length < 1 ||
@@ -30,7 +30,6 @@ const PostForm = ({ error }) => {
     inputs.message.length < 1 ? 
       true : false
     
-  console.log(checkActive)
   const hasError = (param) => 
     error.error && 
       error.error.map((error, index ) => 

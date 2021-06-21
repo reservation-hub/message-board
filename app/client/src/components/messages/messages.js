@@ -39,14 +39,14 @@ const Messages = ({ posts, onDelete, error }) => {
         <span className="message-dt">
           { more ? 
               posts.message :
-              posts.message.substring(0, 50) }
+              posts.message.substring(0, 200) }
           { posts.message.length > 50 && (
             <React.Fragment>
               <span className={ more ? "less" : "more" }>
                 ...
               </span>
               <span 
-                onClick={() => showMore()}
+                onClick={ showMore }
                 className={ more ? "hide" : "show" }
               >
                 { more ? "less" : "more" }
