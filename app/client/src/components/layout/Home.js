@@ -40,7 +40,7 @@ const Home = () => {
   return(
     <React.Fragment>
       { modal && 
-        <Modal modalHide={ modalHide } error={ error } /> }
+        <Modal modalHide={ modalHide } error={ error } posts={ posts } /> }
       { loading && <Loading /> }
       <MessageList error={ error } posts={ posts.posts } />
       { posts.total >= 1 &&

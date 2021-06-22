@@ -1,8 +1,7 @@
 import React from 'react'
 import Postform from '../messages/postForm'
 
-const Modal = ({ modalHide, error, inputs, dataSet }) => {
-
+const Modal = ({ modalHide, error }) => {
   return(
     <div className="modal-overlay" onClick={() => modalHide()}>
       <div 

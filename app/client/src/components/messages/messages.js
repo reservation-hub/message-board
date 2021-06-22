@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react'
 import moment from 'moment'
 import useInput from '../../utils/useInput'
 import HasError from '../common/error'
+import { openModal } from '../../redux/action/modalAction'
+import { useDispatch } from 'react-redux'
 
 const Messages = ({ posts, onDelete, error }) => {
 
@@ -17,6 +19,12 @@ const Messages = ({ posts, onDelete, error }) => {
     },
     [posts],
   )
+  
+  const dispatch = useDispatch()
+
+  const onEdit = (post) => {
+    dispatch(openModal(post))
+  }
 
   return(
     <article className="message-container">
@@ -72,6 +80,9 @@ const Messages = ({ posts, onDelete, error }) => {
           disabled={ checkActive } >
             delete
         </button>
+        <button
+          onClick={ () => onEdit( posts )}
+        >Edit</button>
       </div>
       { error && error.id === posts._id && 
         <p className="message-error">

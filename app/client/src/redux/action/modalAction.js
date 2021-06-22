@@ -1,9 +1,11 @@
 import { HIDE_MODAL, OPEN_MODAL } from "./types"
 
-export const openModal = () => {
+export const openModal = (post) => {
+  console.log('open modal post : ', post)
   return {
     type: OPEN_MODAL,
-    payload: true
+    payload: true,
+    post
   }
 }
 

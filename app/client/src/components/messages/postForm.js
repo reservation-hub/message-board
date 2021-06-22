@@ -1,18 +1,22 @@
 import React, { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { addMessage } from '../../redux/action/boardAction'
 import useInput from '../../utils/useInput'
 import HasError from '../common/error'
 
 const PostForm = ({ error }) => {
-  
+
   const dispatch = useDispatch()
 
+  const post = useSelector(state => state.modal.post) || {}
+
+  console.log('posts from post form : ', post)
+
   const [ inputs, setInputs ] = useInput({
-    title: '',
-    name: '',
+    title: post.title || '',
+    name: post.name || '',
     password: '',
-    message: ''
+    message: post.message || ''
   })
 
   console.log(inputs)
