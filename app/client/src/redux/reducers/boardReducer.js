@@ -16,6 +16,7 @@ export const boardReducer = (state = postState, action) =>
       return { ...state, posts: action.payload, loading: false, total: action.total }
     case ADD_MESSAGE:
       return { ...state, posts: [ action.payload, ...state.posts ] }
+    
     case DELETE_MESSAGE:
       return {
         ...state,

@@ -4,20 +4,19 @@ import { addMessage } from '../../redux/action/boardAction'
 import useInput from '../../utils/useInput'
 import HasError from '../common/error'
 
-const PostForm = ({ error }) => {
+const PostForm = ({ error, post }) => {
   
   const dispatch = useDispatch()
-
+  console.log(post)
   const [ inputs, setInputs ] = useInput({
-    title: '',
-    name: '',
+    title: post ? post.title : '' ,
+    name: post ? post.name : '',
     password: '',
-    message: ''
+    message: post ? post.message : ''
   })
 
-  console.log(inputs)
 
-  const onSubmit = useCallback(e => {
+  const onSubmit = useCallback(e => { 
     dispatch(addMessage(inputs))
     e.preventDefault()
   },

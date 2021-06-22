@@ -23,7 +23,7 @@ const Home = () => {
   const { posts, modal, loading, error } = useSelector(
     state => ({
       posts: state.post,
-      modal: state.modal.modal,
+      modal: state.modal,
       loading: state.post.loading,
       error: state.error
     }), shallowEqual)
@@ -39,8 +39,8 @@ const Home = () => {
 
   return(
     <React.Fragment>
-      { modal && 
-        <Modal modalHide={ modalHide } error={ error } /> }
+      { modal.modal && 
+        <Modal modalHide={ modalHide } modal={ modal } error={ error } /> }
       { loading && <Loading /> }
       <MessageList error={ error } posts={ posts.posts } />
       { posts.total >= 1 &&
