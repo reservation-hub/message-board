@@ -4,6 +4,7 @@ import Home from './components/layout/Home'
 import Header from './components/layout/header'
 import history from './utils/history'
 import './sass/index.sass'
+import Footer from './components/layout/footer'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Header />
         <Route exact path='/' component={ Home } />
       </Router>
+      <Footer />
     </React.Fragment>
   );
 }
