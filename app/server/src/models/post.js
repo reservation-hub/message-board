@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const commentSchema = require('./comment')
 
 const postSchema = new mongoose.Schema(
     {
@@ -16,11 +16,7 @@ const postSchema = new mongoose.Schema(
             type:String,
         },
         comments: [
-            {
-                name: String,
-                text: String,
-                password: String,
-            }
+            commentSchema,
         ]
     }, {
         timestamps: true,
