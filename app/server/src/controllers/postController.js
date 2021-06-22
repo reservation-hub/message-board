@@ -28,24 +28,23 @@ router.post('/', asyncHandler(async (req, res,next) => {
 router.patch('/:postId', asyncHandler(async (req, res,next) => {
     const { title, name, message, password} = req.body
     const { postId:id } = req.params
-    const { password: userPass, ...whiteList } = filterUndefined({ title, name, message, password })
-    const oldPost = await Post.findOne({_id: id})
-    const passCheck = bcrypt.compareSync(userPass, oldPost.password)
-    if (!passCheck) return next({message: "Password did not match!", code: 403})
-    const newPost = await Post.findByIdAndUpdate(id, whiteList, {new: true}).orFail().exec() 
+    const whiteList = filterUndefined({ title, name, message })
+    const oldPost = await Post.findOne({ _id: id })
+    const passCheck = bcrypt.compareSync(password, oldPost.password)
+    if (!passCheck) return next({ message: "Password did not match!", code: 403 })
+    const newPost = await Post.findByIdAndUpdate(id, whiteList, { new: true }).orFail().exec() 
     return res.send(newPost);
 }))
 
 router.delete('/:postId', asyncHandler(async (req, res,next) => {
     const { postId:_id } = req.params
-    const {password} = req.body
+    const { password } = req.body
     const post = await Post.findOne({_id}).orFail().exec()
     const hashedPass = post.password
     const passCheck = bcrypt.compareSync(password, hashedPass)
-    if(!passCheck) next({message:"Password didn't match", id: _id})
+    if(!passCheck) next({ message:"Password didn't match", id: _id })
     post.deleteOne()
-    return res.status(202).send({message:"Deleted successfully"})
-    
+    return res.status(202).send({ message:"Deleted successfully" })
 }))
 
 module.exports = router
