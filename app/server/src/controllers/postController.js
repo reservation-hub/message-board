@@ -5,6 +5,7 @@ const { filterUndefined } = require('../../lib/filter')
 const bcrypt = require('bcrypt')
 const postRepository = require('../repositories/postRepository')
 const commentRoute = require('./commentController')
+const { validator } = require('../lib/validator')
 
 router.use('/:postId', commentRoute)
 
@@ -14,10 +15,11 @@ router.get('/', asyncHandler (async (req, res, next) => {
     const skipIndex = (page - 1) * limit
     const count = await Post.countDocuments();
     const result = await postRepository.fetchByPage(limit, skipIndex)
+    // TODO need to change return values, and their property name eg: total could be totalItems, result could be posts
     res.status(200).send({ result, total:Math.ceil(count/limit) })
 }))
 
-router.post('/', asyncHandler(async (req, res,next) => {
+router.post('/', validator, asyncHandler(async (req, res,next) => {
     const { title, name, message, password } = req.body
     const hash = await bcrypt.hashSync(password, 10)
     let post = new Post({title, name, message, password: hash})
@@ -26,7 +28,7 @@ router.post('/', asyncHandler(async (req, res,next) => {
     return res.status(201).send(post)
 }))
 
-router.patch('/:postId', asyncHandler(async (req, res,next) => {
+router.patch('/:postId', validator, asyncHandler(async (req, res,next) => {
     const { title, name, message, password} = req.body
     const { postId:id } = req.params
     const whiteList = filterUndefined({ title, name, message })
@@ -36,7 +38,7 @@ router.patch('/:postId', asyncHandler(async (req, res,next) => {
     return res.send(newPost);
 }))
 
-router.delete('/:postId', asyncHandler(async (req, res,next) => {
+router.delete('/:postId', validator, asyncHandler(async (req, res,next) => {
     const { postId:_id } = req.params
     const { password } = req.body
     const post = await Post.findOne({_id}).orFail().exec()
