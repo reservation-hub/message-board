@@ -5,7 +5,7 @@ import {
   FETCH_DATA,
   ADD_MESSAGE,
   DELETE_MESSAGE,
-  CELAN_ERROR
+  CLEAN_ERROR
 } from './types'
 
 const isLoading = () => {
@@ -15,7 +15,7 @@ const isError = (err) => {
   return { type: FAILURE, payload: err.response.data }
 }
 export const cleanError = () => {
-  return { type: CELAN_ERROR }
+  return { type: CLEAN_ERROR }
 }
 
 export const fetchList = (page) => async (dispatch) => {
@@ -23,7 +23,8 @@ export const fetchList = (page) => async (dispatch) => {
   dispatch(isLoading())
   try {
     const res = await axios.get(`http://localhost:8090/?page=${page}`)
-    dispatch({ type: FETCH_DATA, payload: res.data.result.results, total: res.data.total }) 
+    console.log('res: ', res)
+    dispatch({ type: FETCH_DATA, payload: res.data.result, total: res.data.total }) 
   } catch (e) {
     dispatch(isError(e))
   }  

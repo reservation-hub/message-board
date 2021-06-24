@@ -1,7 +1,7 @@
 //default
 export const LOADING = 'LOADING'
 export const FAILURE = 'FAILURE'
-export const CELAN_ERROR = 'CLEAN_ERROR'
+export const CLEAN_ERROR = 'CLEAN_ERROR'
 
 //board
 export const FETCH_DATA = 'FETCH_DATA'

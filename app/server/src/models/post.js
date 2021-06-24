@@ -22,6 +22,12 @@ const postSchema = new mongoose.Schema(
         timestamps: true,
     })
 
+postSchema.methods.toJson = function() {
+    const model = this.toObject()
+    delete model.password
+    return model
+}
+
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post
