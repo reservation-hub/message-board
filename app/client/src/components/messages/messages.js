@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import moment from 'moment'
 import useInput from '../../utils/useInput'
 import HasError from '../common/error'
+import CommentList from '../commnet/commentList'
 
 const Messages = ({ posts, onDelete, error }) => {
 
@@ -12,8 +13,8 @@ const Messages = ({ posts, onDelete, error }) => {
   const checkActive = value.password.length < 6 && true
   
   const showMore = useCallback(
-    () => {
-      posts.message.length > 50 && setMore(more => !more) 
+    async () => {
+      posts.message.length > 50 && await setMore(more => !more) 
     },
     [posts],
   )
@@ -78,6 +79,11 @@ const Messages = ({ posts, onDelete, error }) => {
           <HasError error={ error.message } />
         </p>
       }
+      <CommentList 
+        comments={ posts.comments } 
+        postId={ posts._id }
+        error={ error } 
+      />
     </article>
   )
 }
