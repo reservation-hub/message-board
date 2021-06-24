@@ -11,3 +11,7 @@ export const DELETE_MESSAGE = 'DELETE_MESSAGE'
 //modal
 export const OPEN_MODAL = 'OPEN_MODAL'
 export const HIDE_MODAL = 'HIDE_MODAL'
+
+//comment
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'

@@ -15,8 +15,6 @@ const PostForm = ({ error }) => {
     message: ''
   })
 
-  console.log(inputs)
-
   const onSubmit = useCallback(e => {
     dispatch(addMessage(inputs))
     e.preventDefault()
