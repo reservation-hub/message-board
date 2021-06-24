@@ -4,6 +4,7 @@ const asyncHandler = require("../lib/asyncHandler")
 const { filterUndefined } = require('../../lib/filter')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
+const { validator } = require('../lib/validator')
 
 router.post('/comment/', asyncHandler(async (req, res, next) => {
     const { name, text, password } = req.body

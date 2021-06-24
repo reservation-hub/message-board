@@ -1,4 +1,10 @@
-const {check,validationResult} = require("express-validator")
+const { check, validationResult } = require("express-validator")
+
+// TODO need to create different validators per model
+
+exports.postValidator = []
+
+exports.commentValidator = []
 
 exports.validator = [
     check('title')
@@ -42,10 +48,7 @@ exports.validator = [
     ,
     (req,res,next)=>{
         const errors = validationResult(req)
-        if(!errors.isEmpty()){
-            next(errors)
-        }
-        next()
-        
+        if(!errors.isEmpty()) return next(errors)
+        return next()
     }
 ]
