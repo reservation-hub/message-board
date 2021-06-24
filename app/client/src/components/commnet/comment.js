@@ -17,7 +17,7 @@ const Comments = ({ comment, postId }) => {
   )
 
   return (
-    <article className="comment-container">
+    <div className="comment-container">
       <div className="commnet-info">
         <div className="comment-name">
           <span>
@@ -50,7 +50,7 @@ const Comments = ({ comment, postId }) => {
           delete
         </button>
       </div>
-    </article>
+    </div>
   )
 }
 
