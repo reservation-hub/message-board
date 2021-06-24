@@ -13,8 +13,7 @@ router.post('/comment/', asyncHandler(async (req, res, next) => {
     let comment = post.comments.create({name, text, password: hash})
     post.comments.push(comment)
     post.save()
-    comment = comment.toObject()
-    delete comment.password
+    comment = comment.toJson()
     return res.send({ id: postId, comment })
     // TODO 転送するデータ要検討
 }))
@@ -23,7 +22,7 @@ router.patch('/comment/:commentId', asyncHandler(async (req, res, next) => {
   const { name, text, password } = req.body
   const { postId, commentId } = req.params
   const whiteList = filterUndefined({ name, text })
-  const post = await Post.findOne({ _id: postId })
+  let post = await Post.findOne({ _id: postId })
   let error
   post.comments.map(item => {
     if (item._id.toString() === commentId) {
@@ -34,7 +33,9 @@ router.patch('/comment/:commentId', asyncHandler(async (req, res, next) => {
   })
   if (error !== undefined) return next(error)
   post.save()
-  return res.send(post);
+  post = post.toJson()
+  post.comments = post.comments.map(comment => comment.toJson())
+  return res.send(post)
 })) 
 
 router.delete('/comment/:commentId', asyncHandler(async (req, res, next) => {
@@ -50,7 +51,7 @@ router.delete('/comment/:commentId', asyncHandler(async (req, res, next) => {
     })
     if (error !== undefined) return next(error)
     post.save()
-    return res.send({message: "test"})
+    return res.send({message: "Deleted successfully"})
 }))
 
 module.exports = router
