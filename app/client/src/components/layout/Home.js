@@ -48,6 +48,7 @@ const Home = () => {
             totalPage={ posts.total } 
             paginate={ setPage } 
             page={ page } 
+            perPage={ null }
           /> }
     </React.Fragment>
   )

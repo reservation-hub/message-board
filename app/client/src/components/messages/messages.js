@@ -13,15 +13,15 @@ const Messages = ({ posts, onDelete, error }) => {
   const checkActive = value.password.length < 6 && true
   
   const showMore = useCallback(
-    async () => {
-      posts.message.length > 50 && await setMore(more => !more) 
+    () => {
+      posts.message.length > 50 && setMore(more => !more) 
     },
     [posts],
   )
 
   return(
     <article className="message-container">
-      <div className="message-info">
+      <header className="message-info">
         <span className="message-title">
           {posts.title}
         </span>
@@ -35,7 +35,7 @@ const Messages = ({ posts, onDelete, error }) => {
         <span className="message-date">
           { moment(posts.createdAt).format('Y/M/D') }Posted
         </span>
-      </div>
+      </header>
       <div className="message-body">
         <span className="message-dt">
           { more ? 
@@ -74,7 +74,7 @@ const Messages = ({ posts, onDelete, error }) => {
             delete
         </button>
       </div>
-      { error && error.id === posts._id && 
+      { error && error.postId === posts._id && 
         <p className="message-error">
           <HasError error={ error.message } />
         </p>

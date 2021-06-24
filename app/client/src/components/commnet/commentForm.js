@@ -6,7 +6,6 @@ import useInput from "../../utils/useInput"
 const CommentForm = ({ postId }) => {
 
   const dispatch = useDispatch()
-  // console.log(postId)
 
   const [ inputs, setInputs ] = useInput({
     name: '', text: '', password: ''
