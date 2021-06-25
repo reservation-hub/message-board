@@ -1,14 +1,17 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteComment } from '../../redux/action/boardAction'
 import useInput from '../../utils/useInput'
 
-const Comments = ({ comment, postId }) => {
+const Comments = ({ comment, postId, setMore, setdata }) => {
   
   const dispatch = useDispatch()
 
   const [ value, setvalue ] = useInput({ password: '' })
-
+  const onEdit = () => {
+    setMore(true)
+    setdata(comment)
+  }
   const onDelete = useCallback(
     (postId, commentId, password) => {
       dispatch(deleteComment(postId, commentId, password))
@@ -50,6 +53,9 @@ const Comments = ({ comment, postId }) => {
           delete
         </button>
       </div>
+      <button onClick={ onEdit }>
+        edit
+      </button>
     </div>
   )
 }

@@ -1,22 +1,25 @@
 import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { addComment } from '../../redux/action/boardAction'
+import { addComment, editComment } from '../../redux/action/boardAction'
 import useInput from "../../utils/useInput"
 
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ postId, comment }) => {
 
   const dispatch = useDispatch()
 
   const [ inputs, setInputs ] = useInput({
-    name: '', text: '', password: ''
+    name: comment ? comment.name : '', 
+    text: comment ? comment.text : '', 
+    password: ''
   })
 
   const onSubmit = useCallback(
     (e) => {
-      dispatch(addComment(postId, inputs))
       e.preventDefault()
+      if (comment._id) dispatch(editComment(postId, comment._id, inputs))
+      else dispatch(addComment(postId, inputs))
     },
-    [dispatch, inputs, postId],
+    [dispatch, inputs, postId, comment._id],
   )
 
   return (
@@ -26,7 +29,7 @@ const CommentForm = ({ postId }) => {
           type="text" 
           name="name"
           autoComplete="off"
-          value={ inputs.name } 
+          value={ inputs.name || '' } 
           onChange={ setInputs }
           placeholder="username" 
         />
@@ -44,7 +47,7 @@ const CommentForm = ({ postId }) => {
       <div className="form ">
         <textarea 
           name="text" 
-          value={ inputs.text }
+          value={ inputs.text || '' }
           onChange={ setInputs }
           placeholder="text" 
         />
