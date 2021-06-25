@@ -9,6 +9,7 @@ const CommentList = ({ comments, postId, error }) => {
   const perPage = 5
 
   const [more, setMore] = useState(false)
+  const [data, setdata] = useState([])
   
   const showHide = useCallback(() => {
       setMore(more => !more)
@@ -20,7 +21,8 @@ const CommentList = ({ comments, postId, error }) => {
     <section className="comment-area">
       <div className="add-comment">
         <span onClick={ showHide }>Add Commnet</span>
-        { more && <CommentForm postId={ postId } /> }
+        { more && <CommentForm postId={ postId } 
+          comment={ data } /> }
       </div>
       <div>
         <div>
@@ -34,10 +36,12 @@ const CommentList = ({ comments, postId, error }) => {
               key={ comment._id } 
               postId={ postId }
               error={ error }
+              setMore={ setMore }
+              setdata={ setdata }
             />
         )) }
       </div>
-      { comments.length > 1 && 
+      { comments.length > 6 && 
         <Pagination 
           totalPage={ Math.ceil( comments.length / perPage ) }
           perPage={ perPage }
