@@ -22,9 +22,7 @@ router.get('/', asyncHandler (async (req, res, next) => {
 router.post('/', validator, asyncHandler(async (req, res,next) => {
     const { title, name, message, password } = req.body
     const hash = await bcrypt.hashSync(password, 10)
-    let post = new Post({title, name, message, password: hash})
-    post.save()
-    post = post.toJson()
+    const post = await postRepository.createOne({title, name, message, password: hash})
     return res.status(201).send(post)
 }))
 
