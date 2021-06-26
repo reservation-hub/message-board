@@ -11,10 +11,4 @@ const commentSchema = new Schema(
   }
 )
 
-commentSchema.methods.toJson = function() {
-  const model = this.toObject()
-  delete model.password
-  return model
-}
-
 module.exports = commentSchema

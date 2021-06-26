@@ -36,7 +36,7 @@ router.patch('/:postId', validator, asyncHandler(async (req, res,next) => {
     return res.send(newPost);
 }))
 
-router.delete('/:postId', validator, asyncHandler(async (req, res,next) => {
+router.delete('/:postId', asyncHandler(async (req, res,next) => {
     const { postId:_id } = req.params
     const { password } = req.body
     const post = await Post.findOne({_id}).orFail().exec()
