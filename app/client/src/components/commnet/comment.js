@@ -1,23 +1,27 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteComment } from '../../redux/action/boardAction'
+import moment from 'moment'
 import useInput from '../../utils/useInput'
+import HasError from '../common/error'
 
-const Comments = ({ comment, postId, setMore, setdata }) => {
+const Comments = ({ comment, postId, setMore, setdata, error }) => {
   
   const dispatch = useDispatch()
-
+  
   const [ value, setvalue ] = useInput({ password: '' })
-  const onEdit = () => {
-    setMore(true)
-    setdata(comment)
-  }
+
+  const onEdit = useCallback(
+    (e) => {
+      e.preventDefault()
+      setMore(true)
+      setdata(comment)
+    }, [setMore, setdata, comment])
+
   const onDelete = useCallback(
     (postId, commentId, password) => {
       dispatch(deleteComment(postId, commentId, password))
-    },
-    [dispatch],
-  )
+    }, [dispatch])
 
   return (
     <div className="comment-container">
@@ -27,6 +31,13 @@ const Comments = ({ comment, postId, setMore, setdata }) => {
             { comment.name }
           </span>
         </div>
+        <div className="comment-date">
+          <span>
+            { moment(comment.createdAt).format('Y/M/D') }
+          </span>
+        </div>
+      </div>
+      <div>
         <div className="comment-text">
           <span>
             { comment.text }
@@ -56,6 +67,9 @@ const Comments = ({ comment, postId, setMore, setdata }) => {
       <button onClick={ onEdit }>
         edit
       </button>
+      {/* is a problem with the error message */}
+      {/* reason: id value get failed */}
+      { error.error && <HasError error={ error.error } /> }
     </div>
   )
 }

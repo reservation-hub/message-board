@@ -28,7 +28,7 @@ const Messages = ({ posts, onDelete, error }) => {
         <div className="line"></div>
         <span className="message-name">
           name
-          <div className="username">
+          <div className="your name">
            {posts.name}
           </div>
         </span>
@@ -74,9 +74,11 @@ const Messages = ({ posts, onDelete, error }) => {
             delete
         </button>
       </div>
+      {/* is a problem with the error message */}
+      {/* reason: id value get failed */}
       { error && error.postId === posts._id && 
         <p className="message-error">
-          <HasError error={ error.message } />
+          <HasError error={ error.error } />
         </p>
       }
       <CommentList 

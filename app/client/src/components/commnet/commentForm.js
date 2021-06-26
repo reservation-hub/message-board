@@ -31,7 +31,7 @@ const CommentForm = ({ postId, comment }) => {
           autoComplete="off"
           value={ inputs.name || '' } 
           onChange={ setInputs }
-          placeholder="username" 
+          placeholder="your name" 
         />
       </div>
       <div className="form ">
