@@ -10,3 +10,9 @@ exports.updateById = asyncHandler(async (id, fields) => {
   const result = await Post.findByIdAndUpdate(id, fields, { new: true /* return new model */ }).orFail().exec()
   return result.toJson()
 })
+
+exports.createOne = asyncHandler(async (fields) => {
+  const post = new Post(fields)
+  post.save()
+  return post.toJson()
+})
