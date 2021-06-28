@@ -24,11 +24,12 @@ const CommentForm = ({ postId, comment, error }) => {
   )
 
   const hasError = (param) => 
-    error.details && 
+    error.details.errors && 
       error.details.errors.map((error, index ) => 
         error.param === (param) && ( 
           <HasError key={ index } error={ error.msg } /> 
-      ))
+      )
+    )
 
   return (
     <form className="comment-form" onSubmit={ onSubmit }>
@@ -53,6 +54,11 @@ const CommentForm = ({ postId, comment, error }) => {
           placeholder="passwrod" 
         />
         { error.details && hasError('password') }
+        { 
+          error.details && 
+            error.details._id === comment._id &&
+              <HasError error={ error.details.message } /> 
+        }
       </div>
       <div className="form ">
         <textarea 

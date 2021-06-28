@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux'
 import { deleteComment } from '../../redux/action/boardAction'
 import moment from 'moment'
 import useInput from '../../utils/useInput'
-import HasError from '../common/error'
 
-const Comments = ({ comment, postId, setMore, setdata, error }) => {
+const Comments = ({ comment, postId, setMore, setdata }) => {
   
   const dispatch = useDispatch()
   
@@ -67,8 +66,6 @@ const Comments = ({ comment, postId, setMore, setdata, error }) => {
       <button onClick={ onEdit }>
         edit
       </button>
-      { error.details && error.details._id === comment._id &&
-        <HasError error={ error.details.message } /> }
     </div>
   )
 }

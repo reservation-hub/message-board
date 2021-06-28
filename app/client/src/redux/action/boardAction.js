@@ -40,7 +40,7 @@ export const addMessage = (messageData) => async (dispatch) => {
   try {
     const res = await axios.post( `${ BASE_URL }/`, { ...messageData })
     dispatch({ type: ADD_MESSAGE, payload: res.data })
-    history.go('/')
+    // history.go('/')
   } catch (e) {
     dispatch(isError(e))
   }
