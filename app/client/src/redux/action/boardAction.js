@@ -77,7 +77,7 @@ export const editComment = (postId, commentId, commentData) => async dispatch =>
     const res = await axios.patch(`${ BASE_URL }/${ postId }/comment/${ commentId }`, { 
       ...commentData })
     dispatch({ type: EDIT_COMMENT, payload: res.data })
-    // history.go('/')
+    history.go('/')
   } catch (e) {
     dispatch(isError(e))
   }
@@ -89,6 +89,7 @@ export const deleteComment = (postId, commentId, password) => async dispatch => 
     const res = await axios.delete(`${ BASE_URL }/${ postId }/comment/${ commentId }`, { 
       data: { password: password } })
     dispatch({ type: DELETE_COMMENT, payload: res.data })
+    history.go('/')
   } catch (e) {
     dispatch(isError(e))
   }
