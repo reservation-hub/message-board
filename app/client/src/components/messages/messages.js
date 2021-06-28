@@ -70,13 +70,14 @@ const Messages = ({ posts, onDelete, error }) => {
         <button 
           className={ checkActive ? "disable" : "active" }
           onClick={ () => onDelete(posts._id, value.password) } 
-          disabled={ checkActive } >
+          disabled={ checkActive } 
+        >
             delete
         </button>
       </div>
       {/* is a problem with the error message */}
       {/* reason: id value get failed */}
-      { error && error.postId === posts._id && 
+      { error && error.id === posts._id && 
         <p className="message-error">
           <HasError error={ error.error } />
         </p>
