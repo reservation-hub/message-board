@@ -24,8 +24,8 @@ const CommentForm = ({ postId, comment, error }) => {
   )
 
   const hasError = (param) => 
-    error.details.errors && 
-      error.details.errors.map((error, index ) => 
+    error.details && 
+      error.details.map((error, index ) => 
         error.param === (param) && ( 
           <HasError key={ index } error={ error.msg } /> 
       )

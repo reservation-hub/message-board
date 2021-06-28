@@ -30,7 +30,7 @@ const PostForm = ({ error }) => {
     
   const hasError = (param) => 
     error.details && 
-      error.details.errors.map((error, index ) => 
+      error.details.map((error, index ) => 
         error.param === (param) && ( 
           <HasError key={ index } error={ error.msg } /> 
       ))
