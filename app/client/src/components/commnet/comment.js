@@ -67,9 +67,8 @@ const Comments = ({ comment, postId, setMore, setdata, error }) => {
       <button onClick={ onEdit }>
         edit
       </button>
-      {/* is a problem with the error message */}
-      {/* reason: id value get failed */}
-      { error.error && <HasError error={ error.error } /> }
+      { error.details && error.details._id === comment._id &&
+        <HasError error={ error.details.message } /> }
     </div>
   )
 }

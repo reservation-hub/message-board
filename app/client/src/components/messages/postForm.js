@@ -29,12 +29,12 @@ const PostForm = ({ error }) => {
       true : false
     
   const hasError = (param) => 
-    error.error && 
-      error.error.map((error, index ) => 
+    error.details && 
+      error.details.errors.map((error, index ) => 
         error.param === (param) && ( 
           <HasError key={ index } error={ error.msg } /> 
       ))
-  
+
   return(
     <React.Fragment>
       <h2 className="title">
@@ -50,7 +50,7 @@ const PostForm = ({ error }) => {
             onChange={ setInputs }
             placeholder="Message title" 
           />
-          { error.error && hasError('title') }
+          { error.details && hasError('title') }
         </div>
         <div className="form form-username">
           <input 
@@ -61,7 +61,7 @@ const PostForm = ({ error }) => {
             onChange={ setInputs } 
             placeholder="Input your name" 
           />
-          { error.error && hasError('name') }
+          { error.details && hasError('name') }
         </div>
         <div className="form form-password">
           <input 
@@ -72,7 +72,7 @@ const PostForm = ({ error }) => {
             onChange={ setInputs } 
             placeholder="Message password" 
           />
-          { error.error && hasError('password') }
+          { error.details && hasError('password') }
         </div>
         <div className="form form-message">
           <textarea 
@@ -81,7 +81,7 @@ const PostForm = ({ error }) => {
             onChange={ setInputs } 
             placeholder="Message" 
           />
-          { error.error && hasError('message') }
+          { error.details && hasError('message') }
         </div>
         <button 
           className={ checkActive ? 

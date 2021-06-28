@@ -75,11 +75,9 @@ const Messages = ({ posts, onDelete, error }) => {
             delete
         </button>
       </div>
-      {/* is a problem with the error message */}
-      {/* reason: id value get failed */}
-      { error && error.id === posts._id && 
+      { error.details && error.details._id === posts._id && 
         <p className="message-error">
-          <HasError error={ error.error } />
+          <HasError error={ error.details.message } />
         </p>
       }
       <CommentList 

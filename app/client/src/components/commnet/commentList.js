@@ -22,7 +22,7 @@ const CommentList = ({ comments, postId, error }) => {
       <div className="add-comment">
         <span onClick={ showHide }>Add Commnet</span>
         { more && <CommentForm postId={ postId } 
-          comment={ data } /> }
+          comment={ data } error={ error } /> }
       </div>
       <div>
         <div>

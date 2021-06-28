@@ -2,8 +2,9 @@ import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { addComment, editComment } from '../../redux/action/boardAction'
 import useInput from "../../utils/useInput"
+import HasError from '../common/error'
 
-const CommentForm = ({ postId, comment }) => {
+const CommentForm = ({ postId, comment, error }) => {
 
   const dispatch = useDispatch()
 
@@ -22,6 +23,13 @@ const CommentForm = ({ postId, comment }) => {
     [dispatch, inputs, postId, comment._id],
   )
 
+  const hasError = (param) => 
+    error.details && 
+      error.details.errors.map((error, index ) => 
+        error.param === (param) && ( 
+          <HasError key={ index } error={ error.msg } /> 
+      ))
+
   return (
     <form className="comment-form" onSubmit={ onSubmit }>
       <div className="form ">
@@ -33,6 +41,7 @@ const CommentForm = ({ postId, comment }) => {
           onChange={ setInputs }
           placeholder="your name" 
         />
+        { error.details && hasError('name') }
       </div>
       <div className="form ">
         <input 
@@ -43,6 +52,7 @@ const CommentForm = ({ postId, comment }) => {
           onChange={ setInputs }
           placeholder="passwrod" 
         />
+        { error.details && hasError('password') }
       </div>
       <div className="form ">
         <textarea 
@@ -51,6 +61,7 @@ const CommentForm = ({ postId, comment }) => {
           onChange={ setInputs }
           placeholder="text" 
         />
+        { error.details && hasError('text') }
       </div>
       <button>
         Submit
