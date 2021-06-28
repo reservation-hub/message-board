@@ -12,6 +12,12 @@ const errorHandler = (err, req, res, next)=>{
         return res.status(400).send({ details: err.errors.errors})
     }
     
+    // bad requests
+    if (err.code === 400 || err.code === 403) {
+        const { code, ...details } = err
+        return res.status(400).send({ details })
+    }
+
     /*
     might add more errors for password checks that we might not be using right now 
     or that we will have in res-hub

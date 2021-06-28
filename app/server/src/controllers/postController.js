@@ -28,10 +28,10 @@ router.post('/', postValidator, asyncHandler(async (req, res,next) => {
 
 router.patch('/:postId', postValidator, asyncHandler(async (req, res,next) => {
     const { title, name, message, password} = req.body
-    const { postId:id } = req.params
+    const { postId:_id } = req.params
     const whiteList = filterUndefined({ title, name, message })
-    const oldPost = await Post.findOne({ _id: id })
-    if (!bcrypt.compareSync(password, oldPost.password)) return next({ message: "Password did not match!", code: 403 })
+    const oldPost = await Post.findOne({ _id })
+    if (!bcrypt.compareSync(password, oldPost.password)) return next({ message: "Password did not match!", code: 403,  _id  })
     const newPost = await postRepository.updateById(id, whiteList)
     return res.send(newPost);
 }))
@@ -41,7 +41,7 @@ router.delete('/:postId', asyncHandler(async (req, res,next) => {
     const { password } = req.body
     const post = await Post.findOne({_id}).orFail().exec()
     const hashedPass = post.password
-    if (!bcrypt.compareSync(password, hashedPass)) return next({ message:"Password didn't match", _id: _id })
+    if (!bcrypt.compareSync(password, hashedPass)) return next({ message:"Password didn't match", code: 403, _id })
     post.deleteOne()
     return res.status(202).send({ message:"Deleted successfully" })
 }))
