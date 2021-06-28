@@ -48,7 +48,7 @@ exports.validator = [
     ,
     (req,res,next)=>{
         const errors = validationResult(req)
-        if(!errors.isEmpty()) return next(errors)
+        if (!errors.isEmpty()) return next({ errors, name: "ValidationError" })
         return next()
     }
 ]

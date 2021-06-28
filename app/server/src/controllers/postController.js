@@ -41,7 +41,7 @@ router.delete('/:postId', asyncHandler(async (req, res,next) => {
     const { password } = req.body
     const post = await Post.findOne({_id}).orFail().exec()
     const hashedPass = post.password
-    if(!bcrypt.compareSync(password, hashedPass)) return next({ message:"Password didn't match", id: _id })
+    if (!bcrypt.compareSync(password, hashedPass)) return next({ message:"Password didn't match", _id: _id })
     post.deleteOne()
     return res.status(202).send({ message:"Deleted successfully" })
 }))
