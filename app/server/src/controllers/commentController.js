@@ -4,8 +4,9 @@ const asyncHandler = require("../lib/asyncHandler")
 const { filterUndefined } = require('../../lib/filter')
 const { toJson } = require('../utils/utils')
 const bcrypt = require('bcrypt')
+const { commentValidator } = require('../lib/validator')
 
-router.post('/comment/', asyncHandler(async (req, res, next) => {
+router.post('/comment/', commentValidator, asyncHandler(async (req, res, next) => {
     const { name, text, password } = req.body
     const { postId } = req.params
     const post = await Post.findOne({_id: postId})
@@ -14,11 +15,11 @@ router.post('/comment/', asyncHandler(async (req, res, next) => {
     post.comments.push(comment)
     post.save()
     comment = toJson(comment)
-    return res.send({ _id: postId, comment })
+    return res.send({ postId, comment })
     // TODO 転送するデータ要検討
 }))
 
-router.patch('/comment/:commentId', asyncHandler(async (req, res, next) => {
+router.patch('/comment/:commentId', commentValidator, asyncHandler(async (req, res, next) => {
   const { name, text, password } = req.body
   const { postId, commentId } = req.params
   const whiteList = filterUndefined({ name, text })

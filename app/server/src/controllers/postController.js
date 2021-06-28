@@ -5,7 +5,7 @@ const { filterUndefined } = require('../../lib/filter')
 const bcrypt = require('bcrypt')
 const postRepository = require('../repositories/postRepository')
 const commentRoute = require('./commentController')
-const { validator } = require('../lib/validator')
+const { postValidator } = require('../lib/validator')
 
 router.use('/:postId', commentRoute)
 
@@ -19,14 +19,14 @@ router.get('/', asyncHandler (async (req, res, next) => {
     res.status(200).send({ result, total:Math.ceil(count/limit) })
 }))
 
-router.post('/', validator, asyncHandler(async (req, res,next) => {
+router.post('/', postValidator, asyncHandler(async (req, res,next) => {
     const { title, name, message, password } = req.body
     const hash = await bcrypt.hashSync(password, 10)
     const post = await postRepository.createOne({title, name, message, password: hash})
     return res.status(201).send(post)
 }))
 
-router.patch('/:postId', validator, asyncHandler(async (req, res,next) => {
+router.patch('/:postId', postValidator, asyncHandler(async (req, res,next) => {
     const { title, name, message, password} = req.body
     const { postId:id } = req.params
     const whiteList = filterUndefined({ title, name, message })
