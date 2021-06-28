@@ -2,9 +2,11 @@ const router = require('express').Router({mergeParams: true})
 const Post = require('../models/post')
 const asyncHandler = require("../lib/asyncHandler")
 const { filterUndefined } = require('../../lib/filter')
+const { toJson } = require('../utils/utils')
 const bcrypt = require('bcrypt')
+const { commentValidator } = require('../lib/validator')
 
-router.post('/comment/', asyncHandler(async (req, res, next) => {
+router.post('/comment/', commentValidator, asyncHandler(async (req, res, next) => {
     const { name, text, password } = req.body
     const { postId } = req.params
     const post = await Post.findOne({_id: postId})
@@ -12,13 +14,12 @@ router.post('/comment/', asyncHandler(async (req, res, next) => {
     let comment = post.comments.create({name, text, password: hash})
     post.comments.push(comment)
     post.save()
-    comment = comment.toObject()
-    delete comment.password
-    return res.send({ id: postId, comment })
+    comment = toJson(comment)
+    return res.send({ postId, comment })
     // TODO 転送するデータ要検討
 }))
 
-router.patch('/comment/:commentId', asyncHandler(async (req, res, next) => {
+router.patch('/comment/:commentId', commentValidator, asyncHandler(async (req, res, next) => {
   const { name, text, password } = req.body
   const { postId, commentId } = req.params
   const whiteList = filterUndefined({ name, text })
@@ -33,11 +34,8 @@ router.patch('/comment/:commentId', asyncHandler(async (req, res, next) => {
   })
   if (error !== undefined) return next(error)
   post.save()
-  post = post.toJson()
-  post.comments = post.comments.map(comment => {
-    delete comment.password
-    return comment
-  })
+  post = toJson(post)
+  post.comments = post.comments.map(comment => toJson(comment))
   return res.send(post)
 })) 
 
