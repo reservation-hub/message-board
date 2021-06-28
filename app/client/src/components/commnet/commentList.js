@@ -35,7 +35,6 @@ const CommentList = ({ comments, postId, error }) => {
               comment={ comment } 
               key={ comment._id } 
               postId={ postId }
-              error={ error }
               setMore={ setMore }
               setdata={ setdata }
             />
