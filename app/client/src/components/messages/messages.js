@@ -28,7 +28,7 @@ const Messages = ({ posts, onDelete, error }) => {
         <div className="line"></div>
         <span className="message-name">
           name
-          <div className="username">
+          <div className="your name">
            {posts.name}
           </div>
         </span>
@@ -70,13 +70,14 @@ const Messages = ({ posts, onDelete, error }) => {
         <button 
           className={ checkActive ? "disable" : "active" }
           onClick={ () => onDelete(posts._id, value.password) } 
-          disabled={ checkActive } >
+          disabled={ checkActive } 
+        >
             delete
         </button>
       </div>
-      { error && error.postId === posts._id && 
+      { error.details && error.details._id === posts._id && 
         <p className="message-error">
-          <HasError error={ error.message } />
+          <HasError error={ error.details.message } />
         </p>
       }
       <CommentList 
