@@ -41,7 +41,7 @@ const CommentList = ({ comments, postId, error }) => {
             />
         )) }
       </div>
-      { comments.length > 6 && 
+      { comments.length > 5 && 
         <Pagination 
           totalPage={ Math.ceil( comments.length / perPage ) }
           perPage={ perPage }

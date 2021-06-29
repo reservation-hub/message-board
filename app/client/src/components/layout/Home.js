@@ -43,7 +43,7 @@ const Home = () => {
         <Modal modalHide={ modalHide } error={ error } /> }
       { loading && <Loading /> }
       <MessageList error={ error } posts={ posts.posts } />
-      { posts.total >= 1 &&
+      { posts.total > 1 &&
           <Pagination 
             totalPage={ posts.total } 
             paginate={ setPage } 
