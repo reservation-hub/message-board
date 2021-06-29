@@ -7,7 +7,7 @@ import HasError from '../common/error'
 const PostForm = ({ error, post }) => {
   
   const dispatch = useDispatch()
-  console.log(post)
+
   const [ inputs, setInputs ] = useInput({
     title: post ? post.title : '' ,
     name: post ? post.name : '',
@@ -16,11 +16,11 @@ const PostForm = ({ error, post }) => {
   })
 
   const onSubmit = useCallback(e => {
-    if (post._id) dispatch(editMessage(post._id, inputs))
+    if (post) dispatch(editMessage(post._id, inputs))
     else dispatch(addMessage(inputs))
     e.preventDefault()
   },
-  [dispatch, inputs, post._id])
+  [dispatch, inputs])
     
   const checkActive = 
     inputs.password.length < 1 ||
