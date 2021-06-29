@@ -24,8 +24,8 @@ const CommentForm = ({ postId, comment, error }) => {
   )
 
   const hasError = (param) => 
-    error.details.errors && 
-      error.details.errors.map((error, index ) => 
+    error.details && 
+      error.details.map((error, index ) => 
         error.param === (param) && ( 
           <HasError key={ index } error={ error.msg } /> 
       )
@@ -42,7 +42,9 @@ const CommentForm = ({ postId, comment, error }) => {
           onChange={ setInputs }
           placeholder="your name" 
         />
-        { error.details && hasError('name') }
+        { error.details && 
+            error.details._id === undefined && 
+              hasError('name') }
       </div>
       <div className="form ">
         <input 
@@ -53,12 +55,9 @@ const CommentForm = ({ postId, comment, error }) => {
           onChange={ setInputs }
           placeholder="passwrod" 
         />
-        { error.details && hasError('password') }
-        { 
-          error.details && 
-            error.details._id === comment._id &&
-              <HasError error={ error.details.message } /> 
-        }
+        { error.details &&
+            error.details._id === undefined && 
+              hasError('password') }
       </div>
       <div className="form ">
         <textarea 
@@ -67,7 +66,9 @@ const CommentForm = ({ postId, comment, error }) => {
           onChange={ setInputs }
           placeholder="text" 
         />
-        { error.details && hasError('text') }
+        { error.details && 
+            error.details._id === undefined && 
+              hasError('text') }
       </div>
       <button>
         Submit

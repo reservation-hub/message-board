@@ -37,6 +37,7 @@ const CommentList = ({ comments, postId, error }) => {
               postId={ postId }
               setMore={ setMore }
               setdata={ setdata }
+              error={ error }
             />
         )) }
       </div>
