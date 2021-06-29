@@ -51,6 +51,7 @@ export const editMessage = (_id, messageData) => async (dispatch) => {
   try {
     const res = await axios.patch(`${ BASE_URL }/${ _id }`, { ...messageData })
     dispatch({ type: EDIT_MESSAGE, payload: res.data })
+    history.go('/')
   } catch (e) {
     dispatch(isError(e))
   }
