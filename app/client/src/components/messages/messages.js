@@ -5,6 +5,7 @@ import HasError from '../common/error'
 import { openEditModal } from '../../redux/action/modalAction'
 import { useDispatch } from 'react-redux'
 import { cleanError } from '../../redux/action/boardAction'
+import CommentList from '../commnet/commentList'
 
 const Messages = ({ posts, onDelete, error }) => {
 
@@ -30,21 +31,21 @@ const Messages = ({ posts, onDelete, error }) => {
   }
   return(
     <article className="message-container">
-      <div className="message-info">
+      <header className="message-info">
         <span className="message-title">
           {posts.title}
         </span>
         <div className="line"></div>
         <span className="message-name">
           name
-          <div className="username">
+          <div className="your name">
            {posts.name}
           </div>
         </span>
         <span className="message-date">
           { moment(posts.createdAt).format('Y/M/D') }Posted
         </span>
-      </div>
+      </header>
       <div className="message-body">
         <span className="message-dt">
           { more ? 
@@ -79,16 +80,22 @@ const Messages = ({ posts, onDelete, error }) => {
         <button 
           className={ checkActive ? "disable" : "active" }
           onClick={ () => onDelete(posts._id, value.password) } 
-          disabled={ checkActive } >
+          disabled={ checkActive } 
+        >
             delete
         </button>
         <button onClick={ () => onEdit() }>edit</button>
       </div>
-      { error && error.id === posts._id && 
+      { error.details && error.details._id === posts._id && 
         <p className="message-error">
-          <HasError error={ error.message } />
+          <HasError error={ error.details.message } />
         </p>
       }
+      <CommentList 
+        comments={ posts.comments } 
+        postId={ posts._id }
+        error={ error } 
+      />
     </article>
   )
 }

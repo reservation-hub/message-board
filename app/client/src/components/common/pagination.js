@@ -1,47 +1,29 @@
 import React, { useCallback } from 'react'
+import ReactPaginate from 'react-paginate'
 
-const Pagination = ({ page, totalPage, paginate }) => {
+const Pagination = ({ page, totalPage, paginate, perPage }) => {
   
-  const array = []
-
-  for (let i = 1; i <= totalPage; i++) array.push(i) 
-
-  const prvPageHandelr = useCallback(
-    () => {
-      if(page === 1) return null
-      paginate(page - 1)
+  const pageChangeHandle = useCallback(
+    (data) => {
+      let pageNum = data['selected']
+      if (perPage) paginate(pageNum * perPage)
+      else if (page !== 1) return paginate(page - 1) 
+      else return paginate(page + 1)
     },
-    [page, paginate],
-  )
-  
-  const nextPageHandler = useCallback(
-    () => {
-      if(page === totalPage || totalPage === 0) return null
-      paginate(page + 1)
-    },
-    [page, totalPage, paginate],
+    [paginate, page, perPage]
   )
   
   return (
-    <ul className="paginate">
-      <button
-        className="prev-button"
-        onClick={() => prvPageHandelr()}
-      >
-        { '<' }
-      </button>
-      { array.map(number => (
-        <li key={ number }>
-          <button onClick={() => paginate(number)}>{ number }</button>
-        </li>
-      )) }
-      <button
-        className="next-button"
-        onClick={() => nextPageHandler()}
-      >
-        { '>' }
-      </button>
-    </ul>
+    <ReactPaginate
+      pageCount={ totalPage }
+      pageRangeDisplayed={ totalPage }
+      onPageChange={ pageChangeHandle }
+      previousLabel={ '<' }
+      nextLabel={ '>' }
+      containerClassName={ "paginate" }
+      previousClassName={ " prev-button " }
+      nextClassName={ "next-button" }
+    />
   )
 }
 

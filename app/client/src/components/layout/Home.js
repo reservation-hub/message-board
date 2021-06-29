@@ -43,11 +43,12 @@ const Home = () => {
         <Modal modalHide={ modalHide } modal={ modal } error={ error } /> }
       { loading && <Loading /> }
       <MessageList error={ error } posts={ posts.posts } />
-      { posts.total >= 1 &&
+      { posts.total > 1 &&
           <Pagination 
             totalPage={ posts.total } 
             paginate={ setPage } 
             page={ page } 
+            perPage={ null }
           /> }
     </React.Fragment>
   )

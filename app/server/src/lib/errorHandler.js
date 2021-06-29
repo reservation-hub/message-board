@@ -1,21 +1,21 @@
-const ErrorResponse = require("../utils/errorResponse")
-
-const errorHandler = (err,req,res,next)=>{
+const errorHandler = (err, req, res, next)=>{
     
-    let error  = {...err}
-    error.message = err.message
-    if(err.name === "CastError"){
-        const message = "Resource not found"
-        error = new ErrorResponse(message,404)
+    if (err.code === 404 || err.name === "CastError") {
+        return res.status(404).send({ message: "Resource not found"})
     }
-    if(err.code === 11000){
-        const message = "Duplicate field value error"
-        error = new ErrorResponse(message,400)
+    
+    if (err.code === 11000) {
+        return res.status(400).send({ message: "Duplicate field value error"})
     }
-
-    if(error.errors){
-        message = error.errors
-        error = new ErrorResponse(message,400)
+    
+    if (err.name === "ValidationError") {
+        return res.status(400).send({ details: err.errors.errors})
+    }
+    
+    // bad requests
+    if (err.code === 400 || err.code === 403) {
+        const { code, ...details } = err
+        return res.status(400).send({ details })
     }
 
     /*
@@ -23,10 +23,9 @@ const errorHandler = (err,req,res,next)=>{
     or that we will have in res-hub
     */
 
-   res.status(error.statusCode || 500).json({
-       success: false,
-       error:error.message || "Server Error",
-   }) 
+    // default error
+    console.log(err)
+    return res.status(err.code || 500).send("Internal Server Error") 
 }
 
 module.exports = errorHandler
