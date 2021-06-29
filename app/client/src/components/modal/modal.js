@@ -2,9 +2,7 @@ import React from 'react'
 import Postform from '../messages/postForm'
 
 const Modal = ({ modalHide, error, modal }) => {
-  console.log(modal)
-  const data = modal.post
-  console.log(modal.edit === true)
+  
   return(
     <div className="modal-overlay" onClick={() => modalHide()}>
       <div 
