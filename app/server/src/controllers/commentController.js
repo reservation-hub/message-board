@@ -17,7 +17,7 @@ const canEditOrDeleteCommentInComments = (comments, commentId) => {
 router.post('/comment/', commentValidator, asyncHandler(async (req, res, next) => {
     const { name, text, password } = req.body
     const { postId } = req.params
-    const post = await Post.findOne({_id: postId})
+    const post = await Post.findOne({_id: postId}).orFail().exec()
     const hash = bcrypt.hashSync(password, 10)
     let comment = post.comments.create({name, text, password: hash})
     post.comments.push(comment)
@@ -31,7 +31,7 @@ router.patch('/comment/:commentId', commentValidator, asyncHandler(async (req, r
   const { name, text, password } = req.body
   const { postId, commentId } = req.params
   const whiteList = filterUndefined({ name, text })
-  let post = await Post.findOne({ _id: postId })
+  let post = await Post.findOne({ _id: postId }).orFail().exec()
 
   if (!canEditOrDeleteCommentInComments(post.comments, commentId)) return next({ message: "No comment found with provided id", code: 400, postId: post._id})
 

@@ -30,9 +30,9 @@ router.patch('/:postId', postValidator, asyncHandler(async (req, res,next) => {
     const { title, name, message, password} = req.body
     const { postId:_id } = req.params
     const whiteList = filterUndefined({ title, name, message })
-    const oldPost = await Post.findOne({ _id })
+    const oldPost = await Post.findOne({ _id }).orFail().exec()
     if (!bcrypt.compareSync(password, oldPost.password)) return next({ message: "Password did not match!", code: 403,  _id  })
-    const newPost = await postRepository.updateById(id, whiteList)
+    const newPost = await postRepository.updateById(_id, whiteList)
     return res.send(newPost);
 }))
 

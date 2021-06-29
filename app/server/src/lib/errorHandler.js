@@ -1,6 +1,6 @@
 const errorHandler = (err, req, res, next)=>{
     
-    if (err.code === 404 || err.name === "CastError") {
+    if (err.code === 404 || err.name === "CastError" || err.name === "DocumentNotFoundError") {
         return res.status(404).send({ message: "Resource not found"})
     }
     
@@ -12,7 +12,6 @@ const errorHandler = (err, req, res, next)=>{
         return res.status(400).send({ details: err.errors.errors})
     }
     
-    // bad requests
     if (err.code === 400 || err.code === 403) {
         const { code, ...details } = err
         return res.status(400).send({ details })
