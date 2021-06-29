@@ -1,4 +1,4 @@
-import { FETCH_DATA, ADD_MESSAGE, DELETE_MESSAGE, LOADING, ADD_COMMENT, DELETE_COMMENT, EDIT_COMMENT } from '../action/types'
+import { FETCH_DATA, ADD_MESSAGE, DELETE_MESSAGE, LOADING, ADD_COMMENT, DELETE_COMMENT, EDIT_COMMENT, EDIT_MESSAGE } from '../action/types'
 
 export const postState = {
   posts: [],
@@ -16,11 +16,15 @@ export const boardReducer = (state = postState, action) =>
       return { ...state, posts: action.payload, loading: false, total: action.total }
     case ADD_MESSAGE:
       return { ...state, posts: [ action.payload, ...state.posts ] }
-    
+    case EDIT_MESSAGE:
+      return {
+        ...state,
+        post: state.posts.map(res => res._id === action.payload)
+      }
     case DELETE_MESSAGE:
       return {
         ...state,
-        posts: state.posts.filter(res => res._id !== action.payload)
+        post: state.posts.filter(res => res._id !== action.payload)
       }
     case ADD_COMMENT:
       return {

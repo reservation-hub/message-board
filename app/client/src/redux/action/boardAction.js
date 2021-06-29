@@ -19,7 +19,7 @@ const isLoading = () => {
   return { type: LOADING }
 }
 const isError = (err) => {
-  return { type: FAILURE, payload: err.response.data  }
+  return { type: FAILURE, payload: err.response  }
 }
 export const cleanError = () => {
   return { type: CLEAN_ERROR }
@@ -49,9 +49,10 @@ export const addMessage = (messageData) => async (dispatch) => {
 
 export const editMessage = (_id, messageData) => async (dispatch) => {
   try {
-    const res = await axios.patch(`http://localhost:8090/${_id}`, {  })
+    const res = await axios.patch(`${ BASE_URL }/${ _id }`, { ...messageData })
+    dispatch({ type: EDIT_MESSAGE, payload: res.data })
   } catch (e) {
-
+    dispatch(isError(e))
   }
 }
 export const deleteMessage = (_id, password) => async (dispatch) => {

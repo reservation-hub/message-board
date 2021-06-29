@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { addMessage } from '../../redux/action/boardAction'
+import { addMessage, editMessage } from '../../redux/action/boardAction'
 import useInput from '../../utils/useInput'
 import HasError from '../common/error'
 
@@ -16,10 +16,11 @@ const PostForm = ({ error, post }) => {
   })
 
   const onSubmit = useCallback(e => {
-    dispatch(addMessage(inputs))
+    if (post._id) dispatch(editMessage(post._id, inputs))
+    else dispatch(addMessage(inputs))
     e.preventDefault()
   },
-  [dispatch, inputs])
+  [dispatch, inputs, post._id])
     
   const checkActive = 
     inputs.password.length < 1 ||
