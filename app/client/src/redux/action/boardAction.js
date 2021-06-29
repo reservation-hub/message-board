@@ -5,6 +5,7 @@ import {
   FETCH_DATA,
   ADD_MESSAGE,
   DELETE_MESSAGE,
+  EDIT_MESSAGE,
   CLEAN_ERROR,
   ADD_COMMENT,
   DELETE_COMMENT,
@@ -46,6 +47,13 @@ export const addMessage = (messageData) => async (dispatch) => {
   }
 }
 
+export const editMessage = (_id, messageData) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`http://localhost:8090/${_id}`, {  })
+  } catch (e) {
+
+  }
+}
 export const deleteMessage = (_id, password) => async (dispatch) => {
 
   try {
@@ -94,4 +102,3 @@ export const deleteComment = (postId, commentId, password) => async dispatch => 
     dispatch(isError(e))
   }
 }
-

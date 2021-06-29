@@ -12,13 +12,16 @@ const MessageList = ({ error, posts }) => {
     dispatch(deleteMessage(_id, password))
   }, [dispatch])
   
+
+
   return(
     <main className="container">
+
       { posts.length >= 1 ? posts.map(post => (
         <Messages 
           posts={ post } 
           key={ post._id } 
-          onDelete={ onDelete } 
+          onDelete={ onDelete }
           error={ error } 
         /> 
       )) : <EmptyMessage /> }
